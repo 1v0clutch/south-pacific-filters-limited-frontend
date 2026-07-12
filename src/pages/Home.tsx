@@ -1,105 +1,151 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import logo from '../assets/logo.png'
 
 type DropdownKey = 'airFilters' | 'filterMedia' | null
 
 const airFilterItems = [
   { label: 'Panel Filters', href: '#panel-filters' },
-  { label: 'Pocket Filters', href: '#pocket-filters' },
+  { label: 'Pocket / Bag Filters', href: '#pocket-filters' },
   { label: 'HEPA Filters', href: '#hepa-filters' },
   { label: 'Carbon Filters', href: '#carbon-filters' },
   { label: 'HVAC Filters', href: '#hvac-filters' },
+  { label: 'Holding Frames', href: '#holding-frames' },
 ]
 
 const filterMediaItems = [
   { label: 'Synthetic Media', href: '#synthetic-media' },
-  { label: 'Glass Fiber', href: '#glass-fiber' },
-  { label: 'Activated Carbon', href: '#activated-carbon' },
-  { label: 'Nonwoven Media', href: '#nonwoven-media' },
+  { label: 'Glass Fibre', href: '#glass-fibre' },
+  { label: 'Activated Carbon Media', href: '#activated-carbon' },
+  { label: 'Fibreglass Media Rolls', href: '#fibreglass-rolls' },
+  { label: 'Spray Booth Filters', href: '#spray-booth' },
 ]
 
 const stats = [
-  { value: '25+', label: 'Years of excellence' },
-  { value: '12', label: 'Locations across the Pacific' },
-  { value: '500+', label: 'Industrial clients served' },
-  { value: '98%', label: 'On-time delivery rate' },
+  { value: '1999', label: 'Year established' },
+  { value: '1000+', label: 'Clients' },
+  { value: '2', label: 'Locations' },
 ]
 
 const industries = [
   {
-    title: 'Healthcare & Hospitals',
-    description: 'Critical air quality for operating theatres, isolation wards, and sterile environments.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-      </svg>
-    ),
+    title: 'Commercial HVAC',
+    description: 'Panel, pocket, and fine filters for air handling units in offices, retail, and education.',
   },
   {
-    title: 'Manufacturing',
-    description: 'Dust control and process air filtration that protects equipment, people, and product quality.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-      </svg>
-    ),
+    title: 'Healthcare',
+    description: 'High-efficiency filtration for hospitals, clinics, and controlled care environments.',
+  },
+  {
+    title: 'Industrial',
+    description: 'Dust-load capable media and systems for manufacturing and process air.',
   },
   {
     title: 'Food & Beverage',
-    description: 'Hygienic filtration solutions that meet strict food-grade air quality standards.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.379a48.474 48.474 0 00-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12" />
-      </svg>
-    ),
+    description: 'Hygiene-focused filtration that supports food-grade production standards.',
   },
   {
-    title: 'Pharmaceuticals',
-    description: 'Validated HEPA and cleanroom-grade systems for contamination-controlled production.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-      </svg>
-    ),
+    title: 'Residential & Light Commercial',
+    description: 'Practical filter options for homes, small premises, and light plant rooms.',
   },
   {
-    title: 'Mining & Resources',
-    description: 'Heavy-duty filtration built for dust-laden, high-demand industrial environments.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Commercial Buildings',
-    description: 'Efficient HVAC filtration that improves indoor air quality and lowers energy costs.',
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 10.5h6m-6 3.75h6" />
-      </svg>
-    ),
+    title: 'Spray Booth & Finishing',
+    description: 'Media rolls and booth filters designed for paint mist and high dust holding.',
   },
 ]
 
 const locations = [
-  'Suva, Fiji',
-  'Nadi, Fiji',
-  'Port Vila, Vanuatu',
-  'Honiara, Solomon Islands',
+  {
+    city: 'Auckland',
+    address: 'Unit 13, 273 Neilson Street, Onehunga, Auckland',
+    phone: '09 634 5314',
+    phoneHref: 'tel:+6496345314',
+    email: 'auckland@spfilters.co.nz'
+  },
+  {
+    city: 'Christchurch',
+    address: 'Unit 3, 22 Sonter Road, Wigram, Christchurch',
+    phone: '03 341 7229',
+    phoneHref: 'tel:+6433417229',
+    email: 'info@spfilters.co.nz'
+  }
+]
+
+const productLinks = [
+  { label: 'Panel Filters', href: '#panel-filters' },
+  { label: 'Pocket Filters', href: '#pocket-filters' },
+  { label: 'HEPA Filters', href: '#hepa-filters' },
+  { label: 'Filter Media', href: '#filter-media' },
+  { label: 'Holding Frames', href: '#holding-frames' },
 ]
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-      fill="none"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
+      fill="none"
       stroke="currentColor"
-      strokeWidth={2.5}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
+      style={{
+        transition: `transform var(--motion-duration-instant) ease`,
+        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+      }}
     >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
+
+function MenuIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  )
+}
+
+function CloseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  )
+}
+
+function FacebookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+    </svg>
+  )
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  )
+}
+
+function EmailIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+      <path d="M2 4l10 8 10-8" />
+    </svg>
+  )
+}
+
+function AddressIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
     </svg>
   )
 }
@@ -109,27 +155,44 @@ function Home() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileAirOpen, setMobileAirOpen] = useState(false)
   const [mobileMediaOpen, setMobileMediaOpen] = useState(false)
-  const navRef = useRef<HTMLElement>(null)
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [emailLoading, setEmailLoading] = useState(false)
+  const [emailSuccess, setEmailSuccess] = useState(false)
+  const [heroScrollY, setHeroScrollY] = useState(0)
+  const [reduceMotion, setReduceMotion] = useState(false)
+  const [navVisible, setNavVisible] = useState(true)
+  const lastScrollYRef = useRef(0)
+
+  const headerRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
+  const airMenuId = useId()
+  const mediaMenuId = useId()
+  const mobileNavId = useId()
+  const emailInputId = useId()
+  const emailErrorId = useId()
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+    function handlePointerDown(event: MouseEvent | TouchEvent) {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
         setOpenDropdown(null)
       }
     }
 
-    function handleEscape(event: KeyboardEvent) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setOpenDropdown(null)
         setMobileOpen(false)
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleEscape)
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('touchstart', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleEscape)
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('touchstart', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
 
@@ -139,6 +202,71 @@ function Home() {
       document.body.style.overflow = ''
     }
   }, [mobileOpen])
+
+  /* Hero parallax — disabled when user prefers reduced motion */
+  useEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => setReduceMotion(motionQuery.matches)
+    syncMotion()
+    motionQuery.addEventListener('change', syncMotion)
+
+    let frame = 0
+    function onScroll() {
+      if (motionQuery.matches) return
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const hero = heroRef.current
+        if (!hero) return
+        const rect = hero.getBoundingClientRect()
+        // Only track while hero is in/near the viewport
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          setHeroScrollY(window.scrollY)
+        }
+      })
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      motionQuery.removeEventListener('change', syncMotion)
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  /* Scroll-direction navbar hide/show */
+  useEffect(() => {
+    const THRESHOLD = 8 // px — ignore tiny jitter
+    let frame = 0
+
+    function onScroll() {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const currentY = window.scrollY
+        const diff = currentY - lastScrollYRef.current
+
+        if (Math.abs(diff) < THRESHOLD) return // ignore micro-scrolls
+
+        if (diff > 0 && currentY > 80) {
+          // Scrolling DOWN and past the top area → hide nav
+          setNavVisible(false)
+        } else {
+          // Scrolling UP (or near top) → show nav
+          setNavVisible(true)
+        }
+        lastScrollYRef.current = currentY
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
+
+  const videoParallax = reduceMotion ? 0 : heroScrollY * 0.45
+  const contentParallax = reduceMotion ? 0 : heroScrollY * 0.18
 
   function toggleDropdown(key: Exclude<DropdownKey, null>) {
     setOpenDropdown((prev) => (prev === key ? null : key))
@@ -150,531 +278,804 @@ function Home() {
     setMobileMediaOpen(false)
   }
 
+  function handleNewsletterSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setEmailSuccess(false)
+
+    const value = email.trim()
+    if (!value) {
+      setEmailError('Enter your email address.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setEmailError('Enter a valid email address.')
+      return
+    }
+
+    setEmailError('')
+    setEmailLoading(true)
+
+    window.setTimeout(() => {
+      setEmailLoading(false)
+      setEmailSuccess(true)
+      setEmail('')
+    }, 600)
+  }
+
   return (
-    <div className="min-h-screen bg-[#F4F8F9] text-slate-900 antialiased">
-      {/* Sticky Navbar */}
-      <header
-        ref={navRef}
-        className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md"
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "var(--color-surface-strong)",
+      }}
+    >
+      {/* Skip link — keyboard-first */}
+      <a
+        href="#main-content"
+        className="sr-only skip-link"
+        style={{
+          borderRadius: "var(--radius-xs)",
+          left: "var(--space-4)",
+          top: "var(--space-4)",
+          zIndex: 100,
+          backgroundColor: "var(--color-surface-elevated)",
+          color: "var(--color-text-secondary)",
+          boxShadow: "var(--shadow-1)",
+        }}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6 lg:px-8">
-          <a href="#home" className="flex shrink-0 items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2">
+        Skip to main content
+      </a>
+
+      {/* Sticky Navbar — slides out on scroll-down, back in on scroll-up */}
+      <header
+        ref={headerRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          backgroundColor: "var(--color-surface-elevated)",
+          borderBottom: "1px solid var(--color-border-subtle)",
+          boxShadow: "var(--shadow-1)",
+          transform: navVisible ? "translateY(0)" : "translateY(-100%)",
+          transition: reduceMotion
+            ? "none"
+            : "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          willChange: "transform",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "var(--space-4)",
+            minHeight: "96px",
+            paddingInline: "var(--space-6)",
+            width: "100%",
+            position: "relative",
+          }}
+        >
+          <a
+            href="#home"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "var(--color-text-secondary)",
+              minHeight: "44px",
+              padding: "var(--space-2) 0",
+            }}
+          >
             <img
               src={logo}
               alt="South Pacific Filters Limited"
-              className="h-9 w-9 rounded-sm object-contain sm:h-10 sm:w-10"
+              width={80}
+              height={80}
+              style={{ width: 80, height: 80, objectFit: "contain", display: "block" }}
             />
-            <span className="font-display hidden text-sm font-semibold tracking-tight text-slate-900 sm:block sm:text-base">
-              South Pacific Filters
-            </span>
           </a>
 
-          {/* Desktop navigation */}
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          {/* Desktop navigation (primary of 3 nav regions) */}
+          <nav
+            aria-label="Primary"
+            className="desktop-nav"
+            style={{
+              alignItems: "center",
+              gap: "var(--space-1)",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)"
+            }}
+          >
             <a href="#home" className="nav-link">
-              HOME
+              Home
             </a>
 
-            <div className="relative">
+            <div style={{ position: "relative" }}>
               <button
                 type="button"
-                className="nav-link inline-flex items-center gap-1.5"
-                aria-expanded={openDropdown === 'airFilters'}
-                aria-haspopup="true"
-                onClick={() => toggleDropdown('airFilters')}
+                className="nav-link"
+                aria-expanded={openDropdown === "airFilters"}
+                aria-haspopup="menu"
+                aria-controls={airMenuId}
+                onClick={() => toggleDropdown("airFilters")}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setOpenDropdown("airFilters");
+                  }
+                }}
               >
-                AIR FILTERS
-                <ChevronIcon open={openDropdown === 'airFilters'} />
+                Air Filters
+                <ChevronIcon open={openDropdown === "airFilters"} />
               </button>
-              <div
-                className={`absolute right-0 top-full z-50 mt-2 w-56 origin-top-right rounded-lg border border-slate-200 bg-white py-2 shadow-lg shadow-slate-900/8 transition-all duration-200 ${
-                  openDropdown === 'airFilters'
-                    ? 'pointer-events-auto translate-y-0 opacity-100'
-                    : 'pointer-events-none -translate-y-1 opacity-0'
-                }`}
+              <ul
+                id={airMenuId}
                 role="menu"
+                aria-label="Air Filters"
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: "100%",
+                  marginTop: "var(--space-2)",
+                  minWidth: 220,
+                  listStyle: "none",
+                  margin: 0,
+                  padding: "var(--space-2) 0",
+                  backgroundColor: "var(--color-surface-elevated)",
+                  border: "1px solid var(--color-border-subtle)",
+                  borderRadius: "var(--radius-xs)",
+                  boxShadow: "var(--shadow-1)",
+                  opacity: openDropdown === "airFilters" ? 1 : 0,
+                  transform:
+                    openDropdown === "airFilters"
+                      ? "translateY(0)"
+                      : "translateY(-4px)",
+                  pointerEvents:
+                    openDropdown === "airFilters" ? "auto" : "none",
+                  transition: `opacity var(--motion-duration-instant) ease, transform var(--motion-duration-instant) ease`,
+                  zIndex: 60,
+                }}
               >
                 {airFilterItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    role="menuitem"
-                    className="block px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-teal-50 hover:text-teal-800"
-                    onClick={() => setOpenDropdown(null)}
-                  >
-                    {item.label}
-                  </a>
+                  <li key={item.label} role="none">
+                    <a
+                      href={item.href}
+                      role="menuitem"
+                      className="text-link"
+                      style={{
+                        display: "block",
+                        padding: "var(--space-3) var(--space-4)",
+                        textDecoration: "none",
+                        color: "var(--color-text-secondary)",
+                        fontSize: "var(--font-size-xs)",
+                        fontWeight: 400,
+                      }}
+                      onClick={() => setOpenDropdown(null)}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "color-mix(in srgb, var(--color-text-inverse) 10%, transparent)";
+                        e.currentTarget.style.color =
+                          "var(--color-text-inverse)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-text-secondary)";
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
-            <div className="relative">
+            <div style={{ position: "relative" }}>
               <button
                 type="button"
-                className="nav-link inline-flex items-center gap-1.5"
-                aria-expanded={openDropdown === 'filterMedia'}
-                aria-haspopup="true"
-                onClick={() => toggleDropdown('filterMedia')}
+                className="nav-link"
+                aria-expanded={openDropdown === "filterMedia"}
+                aria-haspopup="menu"
+                aria-controls={mediaMenuId}
+                onClick={() => toggleDropdown("filterMedia")}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    setOpenDropdown("filterMedia");
+                  }
+                }}
               >
-                FILTER MEDIA
-                <ChevronIcon open={openDropdown === 'filterMedia'} />
+                Filter Media
+                <ChevronIcon open={openDropdown === "filterMedia"} />
               </button>
-              <div
-                className={`absolute right-0 top-full z-50 mt-2 w-56 origin-top-right rounded-lg border border-slate-200 bg-white py-2 shadow-lg shadow-slate-900/8 transition-all duration-200 ${
-                  openDropdown === 'filterMedia'
-                    ? 'pointer-events-auto translate-y-0 opacity-100'
-                    : 'pointer-events-none -translate-y-1 opacity-0'
-                }`}
+              <ul
+                id={mediaMenuId}
                 role="menu"
+                aria-label="Filter Media"
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: "100%",
+                  marginTop: "var(--space-2)",
+                  minWidth: 220,
+                  listStyle: "none",
+                  margin: 0,
+                  padding: "var(--space-2) 0",
+                  backgroundColor: "var(--color-surface-elevated)",
+                  border: "1px solid var(--color-border-subtle)",
+                  borderRadius: "var(--radius-xs)",
+                  boxShadow: "var(--shadow-1)",
+                  opacity: openDropdown === "filterMedia" ? 1 : 0,
+                  transform:
+                    openDropdown === "filterMedia"
+                      ? "translateY(0)"
+                      : "translateY(-4px)",
+                  pointerEvents:
+                    openDropdown === "filterMedia" ? "auto" : "none",
+                  transition: `opacity var(--motion-duration-instant) ease, transform var(--motion-duration-instant) ease`,
+                  zIndex: 60,
+                }}
               >
                 {filterMediaItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    role="menuitem"
-                    className="block px-4 py-2.5 text-sm text-slate-700 transition-colors hover:bg-teal-50 hover:text-teal-800"
-                    onClick={() => setOpenDropdown(null)}
-                  >
-                    {item.label}
-                  </a>
+                  <li key={item.label} role="none">
+                    <a
+                      href={item.href}
+                      role="menuitem"
+                      style={{
+                        display: "block",
+                        padding: "var(--space-3) var(--space-4)",
+                        textDecoration: "none",
+                        color: "var(--color-text-secondary)",
+                        fontSize: "var(--font-size-xs)",
+                        fontWeight: 400,
+                      }}
+                      onClick={() => setOpenDropdown(null)}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "color-mix(in srgb, var(--color-text-inverse) 10%, transparent)";
+                        e.currentTarget.style.color =
+                          "var(--color-text-inverse)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-text-secondary)";
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
             <a href="#about" className="nav-link">
-              ABOUT
+              About
             </a>
             <a href="#catalogue" className="nav-link">
-              CATALOGUE
+              Catalogue
             </a>
             <a
               href="#contact"
-              className="ml-2 rounded-full bg-[#0B3D4A] px-4 py-2 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
+              className="nav-link"
             >
-              CONTACT
+              Contact
             </a>
           </nav>
 
-          {/* Mobile burger */}
+          {/* Mobile menu toggle */}
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-800 transition-colors hover:bg-slate-50 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            className="menu-toggle"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            aria-controls={mobileNavId}
             onClick={() => setMobileOpen((prev) => !prev)}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: 44,
+              minHeight: 44,
+              borderRadius: "var(--radius-xs)",
+              border: "1px solid var(--color-border-subtle)",
+              background: "var(--color-surface-elevated)",
+              color: "var(--color-text-secondary)",
+              cursor: "pointer",
+            }}
           >
-            {mobileOpen ? (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            )}
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
 
-        {/* Mobile menu panel */}
+        {/* Mobile navigation panel */}
         <div
-          className={`overflow-hidden border-t border-slate-200 bg-white transition-all duration-300 ease-out lg:hidden ${
-            mobileOpen ? 'max-h-[min(85vh,720px)] opacity-100' : 'max-h-0 border-transparent opacity-0'
-          }`}
+          id={mobileNavId}
+          className="mobile-nav-panel"
+          hidden={!mobileOpen}
+          style={{
+            borderTop: "1px solid var(--color-border-subtle)",
+            backgroundColor: "var(--color-surface-elevated)",
+            maxHeight: mobileOpen ? "min(85vh, 720px)" : 0,
+            opacity: mobileOpen ? 1 : 0,
+            overflow: "auto",
+            transition: `max-height var(--motion-duration-fast) ease, opacity var(--motion-duration-fast) ease`,
+          }}
         >
-          <nav className="flex flex-col gap-1 px-4 py-4 sm:px-6" aria-label="Mobile">
-            <a href="#home" className="mobile-link" onClick={closeMobile}>
-              HOME
+          <nav
+            aria-label="Mobile"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-1)",
+              padding: "var(--space-4)",
+            }}
+          >
+            <a
+              href="#home"
+              className="nav-link"
+              style={{ width: "100%" }}
+              onClick={closeMobile}
+            >
+              Home
             </a>
 
             <div>
               <button
                 type="button"
-                className="mobile-link flex w-full items-center justify-between"
+                className="nav-link"
+                style={{ width: "100%", justifyContent: "space-between" }}
                 aria-expanded={mobileAirOpen}
                 onClick={() => setMobileAirOpen((prev) => !prev)}
               >
-                AIR FILTERS
+                Air Filters
                 <ChevronIcon open={mobileAirOpen} />
               </button>
-              <div
-                className={`overflow-hidden transition-all duration-200 ${
-                  mobileAirOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="ml-3 mt-1 space-y-0.5 border-l-2 border-teal-200 pl-3">
+              {mobileAirOpen && (
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: 0,
+                    padding: `0 0 0 var(--space-4)`,
+                    borderLeft: "2px solid var(--color-text-inverse)",
+                    marginLeft: "var(--space-3)",
+                  }}
+                >
                   {airFilterItems.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="block rounded-md px-3 py-2 text-sm text-slate-600 hover:bg-teal-50 hover:text-teal-800"
-                      onClick={closeMobile}
-                    >
-                      {item.label}
-                    </a>
+                    <li key={item.label}>
+                      <a
+                        href={item.href}
+                        onClick={closeMobile}
+                        style={{
+                          display: "block",
+                          padding: "var(--space-3)",
+                          color: "var(--color-text-tertiary)",
+                          textDecoration: "none",
+                          fontSize: "var(--font-size-xs)",
+                          minHeight: 44,
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              )}
             </div>
 
             <div>
               <button
                 type="button"
-                className="mobile-link flex w-full items-center justify-between"
+                className="nav-link"
+                style={{ width: "100%", justifyContent: "space-between" }}
                 aria-expanded={mobileMediaOpen}
                 onClick={() => setMobileMediaOpen((prev) => !prev)}
               >
-                FILTER MEDIA
+                Filter Media
                 <ChevronIcon open={mobileMediaOpen} />
               </button>
-              <div
-                className={`overflow-hidden transition-all duration-200 ${
-                  mobileMediaOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="ml-3 mt-1 space-y-0.5 border-l-2 border-teal-200 pl-3">
+              {mobileMediaOpen && (
+                <ul
+                  style={{
+                    listStyle: "none",
+                    margin: 0,
+                    padding: `0 0 0 var(--space-4)`,
+                    borderLeft: "2px solid var(--color-text-inverse)",
+                    marginLeft: "var(--space-3)",
+                  }}
+                >
                   {filterMediaItems.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="block rounded-md px-3 py-2 text-sm text-slate-600 hover:bg-teal-50 hover:text-teal-800"
-                      onClick={closeMobile}
-                    >
-                      {item.label}
-                    </a>
+                    <li key={item.label}>
+                      <a
+                        href={item.href}
+                        onClick={closeMobile}
+                        style={{
+                          display: "block",
+                          padding: "var(--space-3)",
+                          color: "var(--color-text-tertiary)",
+                          textDecoration: "none",
+                          fontSize: "var(--font-size-xs)",
+                          minHeight: 44,
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              )}
             </div>
 
-            <a href="#about" className="mobile-link" onClick={closeMobile}>
-              ABOUT
+            <a
+              href="#about"
+              className="nav-link"
+              style={{ width: "100%" }}
+              onClick={closeMobile}
+            >
+              About
             </a>
-            <a href="#catalogue" className="mobile-link" onClick={closeMobile}>
-              CATALOGUE
+            <a
+              href="#catalogue"
+              className="nav-link"
+              style={{ width: "100%" }}
+              onClick={closeMobile}
+            >
+              Catalogue
             </a>
             <a
               href="#contact"
-              className="mt-2 rounded-full bg-[#0B3D4A] px-4 py-3 text-center text-sm font-semibold tracking-wide text-white"
+              className="nav-link"
+              style={{ width: "100%" }}
               onClick={closeMobile}
             >
-              CONTACT
+              Contact
             </a>
           </nav>
         </div>
       </header>
 
-      <main>
-        {/* Hero */}
-        <section
-          id="home"
-          className="relative overflow-hidden bg-[#071820] text-white"
-          aria-labelledby="hero-heading"
-        >
-          {/* Filter-pleat mesh signature */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.14]"
-            aria-hidden="true"
-            style={{
-              backgroundImage: `
-                repeating-linear-gradient(
-                  105deg,
-                  transparent 0,
-                  transparent 14px,
-                  rgba(45, 212, 191, 0.35) 14px,
-                  rgba(45, 212, 191, 0.35) 15px
-                ),
-                radial-gradient(ellipse 80% 60% at 70% 20%, rgba(20, 184, 166, 0.35), transparent 55%),
-                radial-gradient(ellipse 50% 40% at 10% 90%, rgba(14, 116, 144, 0.4), transparent 50%)
-              `,
-            }}
-          />
-          <div className="pointer-events-none absolute -right-24 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border border-teal-400/20 sm:h-[28rem] sm:w-[28rem]" aria-hidden="true" />
-          <div className="pointer-events-none absolute -right-8 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full border border-teal-400/15 sm:h-80 sm:w-80" aria-hidden="true" />
+      {/* Navbar height spacer — keeps content from sitting behind the fixed nav */}
+      <div aria-hidden="true" style={{ height: "96px" }} />
 
-          <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-28">
-            <div className="lg:col-span-7">
-              <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-3 py-1 text-xs font-medium tracking-wide text-teal-200 uppercase">
-                <span className="h-1.5 w-1.5 rounded-full bg-teal-400" aria-hidden="true" />
-                South Pacific Filters Limited
-              </p>
-              <h1
-                id="hero-heading"
-                className="font-display text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-[3.35rem] lg:leading-[1.1]"
-              >
-                Leading Clean Air{' '}
-                <span className="bg-gradient-to-r from-teal-300 to-cyan-200 bg-clip-text text-transparent">
-                  Solutions
-                </span>
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-                Engineered air filters and filter media for hospitals, factories, and commercial facilities across the South Pacific — protecting people, processes, and performance.
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a
-                  href="#catalogue"
-                  className="inline-flex items-center justify-center rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-teal-900/40 transition hover:bg-teal-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071820]"
+      <main id="main-content">
+        {/* Hero — fullscreen video + overlay + scroll parallax */}
+        <section
+          ref={heroRef}
+          id="home"
+          aria-labelledby="hero-heading"
+          className="relative isolate h-svh min-h-[32rem] w-full overflow-hidden bg-[var(--color-surface-base)] text-[var(--color-text-on-dark)]"
+        >
+          {/* Parallax video layer (scaled so edges never show while translating) */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 h-[120%] w-full will-change-transform"
+            style={{
+              transform: `translate3d(0, ${videoParallax}px, 0) scale(1.08)`,
+            }}
+            aria-hidden="true"
+          >
+            <video
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect fill='%23000000' width='100%25' height='100%25'/%3E%3C/svg%3E"
+            >
+              <source
+                src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+
+          {/* Readable dark overlays */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/75 via-black/55 to-black/80"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.45)_100%)]"
+            aria-hidden="true"
+          />
+
+          {/* Overlay content (slower parallax) */}
+          <div
+            className="relative z-10 flex h-full w-full items-center will-change-transform"
+            style={{
+              transform: `translate3d(0, ${contentParallax}px, 0)`,
+            }}
+          >
+            <div className="container-fd mx-auto w-full px-[var(--space-4)] sm:px-[var(--space-5)] lg:px-[var(--space-6)] flex flex-col items-center text-center">
+              <div className="max-w-3xl flex flex-col items-center">
+                <p className="mb-[var(--space-3)] text-[length:var(--font-size-sm)] font-medium uppercase tracking-[0.1em] text-[var(--color-text-accent-on-dark)]">
+                  New Zealand owned &amp; operated
+                </p>
+                <h1
+                  id="hero-heading"
+                  className="m-0 text-[length:clamp(var(--font-size-3xl),5vw,var(--font-size-4xl))] font-bold leading-[1.1] text-[var(--color-text-on-dark)] tracking-tight"
                 >
-                  View Catalogue
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071820]"
-                >
-                  Request a Quote
-                </a>
+                  Leading Clean Air Solutions
+                </h1>
+                <p className="mt-[var(--space-4)] max-w-xl text-[length:var(--font-size-md)] font-light leading-relaxed text-[var(--color-text-muted-on-dark)]">
+                  New Zealand’s leading air filtration specialists. HVAC filters
+                  and filter media that conform to ISO16890 — for commercial,
+                  residential, and industrial customers.
+                </p>
               </div>
             </div>
-
-            <aside className="lg:col-span-5" aria-label="Key highlights">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-                <p className="text-xs font-semibold tracking-[0.2em] text-teal-300 uppercase">Why specify SPFL</p>
-                <ul className="mt-5 space-y-4">
-                  {[
-                    'ISO-aligned manufacturing & testing',
-                    'Regional stock for faster turnaround',
-                    'Application engineering support',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-slate-200 sm:text-base">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/20 text-teal-300" aria-hidden="true">
-                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
           </div>
         </section>
 
-        {/* Quick Stats / Trust */}
-        <section className="border-b border-slate-200 bg-white" aria-labelledby="stats-heading">
-          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+        {/* Floating quick stats — straddles Hero / About boundary */}
+        <div
+          id="stats"
+          role="region"
+          aria-labelledby="stats-heading"
+          className="relative z-20 mx-auto -mt-14 w-full max-w-5xl px-[var(--space-4)] sm:-mt-16 sm:px-[var(--space-5)] md:-mt-20 lg:-mt-24"
+        >
+          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] px-[var(--space-4)] py-[var(--space-5)] shadow-xl sm:px-[var(--space-5)] sm:py-[var(--space-6)]">
             <h2 id="stats-heading" className="sr-only">
               Company metrics
             </h2>
-            <dl className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
-              {stats.map((stat) => (
+            <dl className="stats-grid m-0 grid grid-cols-2 gap-[var(--space-4)] lg:grid-cols-3 lg:gap-0">
+              {stats.map((stat, index) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl border border-slate-100 bg-[#F4F8F9] px-4 py-5 text-center sm:px-6 sm:py-6"
+                  className={`px-[var(--space-3)] py-[var(--space-2)] text-center sm:px-[var(--space-4)] ${index > 0
+                    ? "lg:border-l lg:border-[var(--color-border-subtle)]"
+                    : ""
+                    }`}
                 >
-                  <dt className="order-2 mt-1 text-xs font-medium tracking-wide text-slate-500 uppercase sm:text-sm">
-                    {stat.label}
-                  </dt>
-                  <dd className="font-display order-1 text-3xl font-bold tracking-tight text-[#0B3D4A] sm:text-4xl">
+                  <dd className="m-0 mt-[var(--space-2)] text-[length:var(--font-size-2xl)] font-bold leading-tight text-[var(--color-text-inverse)]">
                     {stat.value}
                   </dd>
+                  <dt className="m-0 text-[length:var(--font-size-md)] font-bold text-[var(--color-text-tertiary)]">
+                    {stat.label}
+                  </dt>
                 </div>
               ))}
             </dl>
           </div>
-        </section>
+        </div>
 
-        {/* About / Value Prop */}
-        <section id="about" className="bg-[#F4F8F9]" aria-labelledby="about-heading">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.18em] text-teal-700 uppercase">About us</p>
-              <h2 id="about-heading" className="font-display mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Clean air, engineered for the Pacific
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">
-                South Pacific Filters Limited designs, supplies, and supports industrial air filtration systems for environments where air quality is non-negotiable. From HEPA-critical healthcare to heavy industry, we combine proven media technology with regional expertise.
-              </p>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'End-to-end product range — filters, media, and accessories',
-                  'Technical guidance matched to your airflow and efficiency targets',
-                  'Reliable supply chains across island and mainland markets',
-                ].map((point) => (
-                  <li key={point} className="flex gap-3 text-sm text-slate-700 sm:text-base">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600" aria-hidden="true" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href="#contact"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#0B3D4A] transition hover:text-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
-              >
-                Talk to our team
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-            </div>
+        {/* About / value prop — top padding so content clears the floating card */}
+        <section
+          id="about"
+          aria-labelledby="about-heading"
+          className="relative z-0 -mt-14 bg-[var(--color-surface-strong)] pt-20 sm:-mt-16 sm:pt-24 md:-mt-20 md:pt-28 lg:-mt-24 lg:pt-32 min-h-[100vh] flex flex-col justify-center"
+        >
+          <div className="container-fd section-pad py-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <p className="m-0 text-[length:var(--font-size-sm)] font-semibold tracking-widest uppercase text-[var(--color-text-inverse)]">
+                  Who we are
+                </p>
+                <h2
+                  id="about-heading"
+                  className="m-0 mt-4 text-[length:var(--font-size-3xl)] font-bold leading-tight text-[var(--color-text-secondary)]"
+                >
+                  Locally owned filtration experts since 1999
+                </h2>
+                <p className="m-0 mt-6 text-[length:var(--font-size-md)] text-[var(--color-text-tertiary)] leading-relaxed max-w-2xl">
+                  South Pacific Filters Limited is a New Zealand owned and
+                  operated business specialising in air filters and related
+                  products for commercial, residential, and industrial
+                  customers. We supply quality HVAC air filtration equipment
+                  that conforms to the latest global standard, ISO16890.
+                </p>
+                <a
+                  href="#contact"
+                  className="btn btn--primary mt-10 shadow-md hover:shadow-lg transition-shadow"
+                >
+                  Talk to our team
+                </a>
+              </div>
 
-            <div className="relative">
-              <div
-                className="aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-[#0B3D4A] via-[#0F4C5C] to-teal-700 shadow-xl shadow-slate-900/10"
-                role="img"
-                aria-label="Industrial air filtration systems illustration"
-              >
-                <div
-                  className="absolute inset-0 opacity-30"
-                  aria-hidden="true"
-                  style={{
-                    backgroundImage: `repeating-linear-gradient(
-                      -18deg,
-                      transparent,
-                      transparent 10px,
-                      rgba(255,255,255,0.08) 10px,
-                      rgba(255,255,255,0.08) 11px
-                    )`,
-                  }}
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm">
-                    <svg className="h-8 w-8 text-teal-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                    </svg>
-                  </div>
-                  <p className="font-display text-xl font-semibold text-white sm:text-2xl">Precision filtration</p>
-                  <p className="mt-2 max-w-xs text-sm text-teal-100/90">
-                    Media, frames, and systems built for Pacific climates and industrial loads.
-                  </p>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -left-4 hidden rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-lg sm:block" aria-hidden="true">
-                <p className="text-xs font-medium text-slate-500">Efficiency range</p>
-                <p className="font-display text-lg font-bold text-[#0B3D4A]">G4 → H14</p>
-              </div>
+              {/*TODO: put the image here for about section */}
             </div>
           </div>
         </section>
 
-        {/* Industries Grid */}
-        <section id="industries" className="bg-white" aria-labelledby="industries-heading">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold tracking-[0.18em] text-teal-700 uppercase">Industries</p>
-              <h2 id="industries-heading" className="font-display mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Built for demanding environments
-              </h2>
-              <p className="mt-4 text-base text-slate-600 sm:text-lg">
-                From sterile healthcare suites to dust-heavy processing plants — filtration matched to your sector.
-              </p>
-            </div>
 
-            <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {industries.map((industry) => (
-                <li key={industry.title}>
-                  <article className="group h-full rounded-2xl border border-slate-200 bg-[#F4F8F9] p-6 transition duration-300 hover:-translate-y-1 hover:border-teal-300/60 hover:bg-white hover:shadow-lg hover:shadow-teal-900/5">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B3D4A] text-teal-200 transition group-hover:bg-teal-600 group-hover:text-white">
-                      {industry.icon}
-                    </div>
-                    <h3 className="font-display text-lg font-semibold text-slate-900">{industry.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{industry.description}</p>
-                  </article>
+        {/* Locations section */}
+        <section
+          aria-labelledby="contact-heading"
+          className="bg-[var(--color-surface-strong)] py-24 border-t border-[var(--color-border-subtle)]"
+        >
+          <div className="container-fd flex flex-col items-center text-center">
+            <h2
+              className="m-0 mb-12 text-[length:var(--font-size-3xl)] font-bold text-[var(--color-text-secondary)] tracking-wider"
+            >
+              OUR LOCATIONS
+            </h2>
+            <ul
+              className="list-none m-0 p-0 flex flex-row justify-center flex-wrap md:flex-nowrap gap-8 w-full"
+            >
+              {locations.map((loc) => (
+                <li
+                  key={loc.city}
+                  className="flex-1 min-w-[280px] max-w-[400px] p-8 border border-[var(--color-border-subtle)] rounded-lg shadow-sm flex flex-col gap-[var(--space-4)] text-left bg-[var(--color-surface-elevated)] hover:shadow-md transition-shadow duration-300"
+                >
+                  <h3
+                    className="m-0 text-[length:var(--font-size-xl)] font-bold text-[var(--color-text-secondary)]"
+                  >
+                    {loc.city}
+                  </h3>
+
+                  <div className="flex items-start gap-[var(--space-3)] text-[length:var(--font-size-sm)] text-[var(--color-text-tertiary)]">
+                    <span className="text-[var(--color-text-inverse)] mt-1"><AddressIcon /></span>
+                    <span>{loc.address}</span>
+                  </div>
+
+                  <div className="flex items-center gap-[var(--space-3)] text-[length:var(--font-size-sm)] text-[var(--color-text-tertiary)]">
+                    <span className="text-[var(--color-text-inverse)]"><PhoneIcon /></span>
+                    <a
+                      href={loc.phoneHref}
+                      className="text-link text-[length:var(--font-size-sm)]"
+                    >
+                      {loc.phone}
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-[var(--space-3)] text-[length:var(--font-size-sm)] text-[var(--color-text-tertiary)]">
+                    <span className="text-[var(--color-text-inverse)]"><EmailIcon /></span>
+                    <a
+                      href={`mailto:${loc.email}`}
+                      className="text-link text-[length:var(--font-size-sm)]"
+                    >
+                      {loc.email}
+                    </a>
+                  </div>
                 </li>
               ))}
             </ul>
-          </div>
-        </section>
-
-        {/* Catalogue CTA band */}
-        <section id="catalogue" className="bg-[#0B3D4A]" aria-labelledby="catalogue-heading">
-          <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:px-6 sm:py-14 lg:flex-row lg:items-center lg:px-8">
-            <div>
-              <h2 id="catalogue-heading" className="font-display text-2xl font-bold text-white sm:text-3xl">
-                Explore our product catalogue
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-teal-100/90 sm:text-base">
-                Spec sheets, efficiency ratings, and sizing guides for air filters and media — ready for your next project.
-              </p>
-            </div>
-            <a
-              href="#contact"
-              className="inline-flex shrink-0 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0B3D4A] transition hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B3D4A]"
-            >
-              Get the catalogue
-            </a>
-          </div>
-        </section>
-
-        {/* Contact teaser */}
-        <section id="contact" className="border-t border-slate-200 bg-[#F4F8F9]" aria-labelledby="contact-heading">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm sm:px-10">
-              <h2 id="contact-heading" className="font-display text-2xl font-bold text-slate-900 sm:text-3xl">
-                Ready to improve your air quality?
-              </h2>
-              <p className="mx-auto mt-3 max-w-lg text-slate-600">
-                Tell us about your application — our team will recommend the right filters and media for your facility.
-              </p>
-              <a
-                href="mailto:info@southpacificfilters.com"
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0B3D4A] px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
-              >
-                Contact sales
-              </a>
-            </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#071820] text-slate-300" role="contentinfo">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-16 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          <div className="lg:col-span-1">
-            <a href="#home" className="inline-flex items-center gap-2.5">
-              <img src={logo} alt="" className="h-9 w-9 object-contain" />
-              <span className="font-display text-sm font-semibold text-white">South Pacific Filters</span>
-            </a>
-            <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              Leading clean air solutions for industry, healthcare, and commercial facilities across the South Pacific.
-            </p>
-          </div>
+      <footer
+        role="contentinfo"
+        className="bg-[var(--color-surface-base)] text-[var(--color-text-muted-on-dark)]"
+      >
+        <div className="container-fd px-[var(--space-5)] py-10">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
-          <div>
-            <h3 className="text-xs font-semibold tracking-[0.15em] text-white uppercase">Quick links</h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href="#home" className="transition hover:text-teal-300">Home</a></li>
-              <li><a href="#about" className="transition hover:text-teal-300">About</a></li>
-              <li><a href="#industries" className="transition hover:text-teal-300">Industries</a></li>
-              <li><a href="#catalogue" className="transition hover:text-teal-300">Catalogue</a></li>
-              <li><a href="#contact" className="transition hover:text-teal-300">Contact</a></li>
-            </ul>
-          </div>
+            {/* Quick Links */}
+            <div>
+              <h3 className="m-0 text-[length:var(--font-size-xs)] font-semibold tracking-widest uppercase text-[var(--color-text-on-dark)]">
+                Quick links
+              </h3>
+              <ul className="list-none m-0 mt-4 p-0 grid gap-1">
+                {[
+                  { label: "Home", href: "#home" },
+                  { label: "About", href: "#about" },
+                  { label: "Contact Us", href: "#contact" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="inline-flex items-center min-h-[36px] text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)]"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h3 className="text-xs font-semibold tracking-[0.15em] text-white uppercase">Products</h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li><a href="#hepa-filters" className="transition hover:text-teal-300">HEPA Filters</a></li>
-              <li><a href="#hvac-filters" className="transition hover:text-teal-300">HVAC Filters</a></li>
-              <li><a href="#synthetic-media" className="transition hover:text-teal-300">Synthetic Media</a></li>
-              <li><a href="#activated-carbon" className="transition hover:text-teal-300">Activated Carbon</a></li>
-            </ul>
-          </div>
+            {/* Products */}
+            <div>
+              <h3 className="m-0 text-[length:var(--font-size-xs)] font-semibold tracking-widest uppercase text-[var(--color-text-on-dark)]">
+                Products
+              </h3>
+              <ul className="list-none m-0 mt-4 p-0 grid gap-1">
+                {productLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="inline-flex items-center min-h-[36px] text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)]"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h3 className="text-xs font-semibold tracking-[0.15em] text-white uppercase">Locations</h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {locations.map((loc) => (
-                <li key={loc} className="flex items-start gap-2">
-                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                  </svg>
-                  {loc}
+            {/* Social Media */}
+            <div>
+              <h3 className="m-0 text-[length:var(--font-size-xs)] font-semibold tracking-widest uppercase text-[var(--color-text-on-dark)]">
+                Social Media
+              </h3>
+              <ul className="list-none m-0 mt-4 p-0 grid gap-2">
+                <li>
+                  <a
+                    href="#"
+                    aria-label="Facebook"
+                    className="inline-flex items-center gap-2 min-h-[36px] text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)]"
+                  >
+                    <FacebookIcon /> South Pacific Filters
+                  </a>
                 </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+              </ul>
+            </div>
 
-        <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-center text-xs text-slate-500 sm:flex-row sm:px-6 sm:text-left lg:px-8">
-            <p>&copy; {new Date().getFullYear()} South Pacific Filters Limited. All rights reserved.</p>
-            <p>Clean air solutions for the Pacific region.</p>
+            {/* Let's Connect */}
+            <div>
+              <h3 className="m-0 text-[length:var(--font-size-xs)] font-semibold tracking-widest uppercase text-[var(--color-text-on-dark)]">
+                Let's connect
+              </h3>
+              <ul className="list-none m-0 mt-4 p-0 grid gap-2">
+                <li>
+                  <a
+                    href="tel:+6496345314"
+                    className="inline-flex items-center gap-2 min-h-[36px] text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)]"
+                  >
+                    <PhoneIcon /> 09 634 5314
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:info@example.com"
+                    className="inline-flex items-center gap-2 min-h-[36px] text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)]"
+                  >
+                    <EmailIcon /> info@example.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          {/* Divider + copyright */}
+          <div className="mt-12 border-t border-[var(--color-border-subtle)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[length:var(--font-size-xs)] text-[var(--color-text-muted-on-dark)]">
+            <p className="m-0">
+              &copy; {new Date().getFullYear()} South Pacific Filters Limited. All rights reserved.
+            </p>
+            <p className="m-0">
+              New Zealand owned &amp; operated since 1999
+            </p>
           </div>
         </div>
       </footer>
+
+      <style>{`
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+        .skip-link:focus {
+          position: absolute;
+          width: auto;
+          height: auto;
+          padding: var(--space-3) var(--space-4);
+          margin: 0;
+          overflow: visible;
+          clip: auto;
+          white-space: normal;
+        }
+        .desktop-nav { display: none; }
+        .menu-toggle { display: inline-flex; }
+        .mobile-nav-panel { display: block; }
+        @media (min-width: 1024px) {
+          .desktop-nav { display: flex; }
+          .menu-toggle { display: none; }
+          .mobile-nav-panel { display: none !important; }
+        }
+      `}</style>
     </div>
-  )
+  );
 }
 
 export default Home
