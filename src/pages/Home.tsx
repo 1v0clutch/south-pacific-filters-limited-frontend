@@ -256,7 +256,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Industries Grid */}
+        {/* Industries Grid 
         <section id="industries" className="bg-white" aria-labelledby="industries-heading">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
             <div className="mx-auto max-w-2xl text-center">
@@ -284,7 +284,7 @@ export default function Home() {
             </ul>
           </div>
         </section>
-
+*/}
         {/* Catalogue CTA band */}
         <section id="catalogue" className="bg-[#065f46]" aria-labelledby="catalogue-heading">
           <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:px-6 sm:py-14 lg:flex-row lg:items-center lg:px-8">
