@@ -595,22 +595,130 @@ function Home() {
           </div>
         </section>
 
-        {/* Contact teaser */}
+        {/* Contact Form */}
         <section id="contact" className="border-t border-slate-200 bg-[#F4F8F9]" aria-labelledby="contact-heading">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm sm:px-10">
-              <h2 id="contact-heading" className="font-display text-2xl font-bold text-slate-900 sm:text-3xl">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+            <div className="mx-auto max-w-2xl text-center lg:max-w-none">
+              <p className="text-xs font-semibold tracking-[0.18em] text-teal-700 uppercase">Get in touch</p>
+              <h2 id="contact-heading" className="font-display mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
                 Ready to improve your air quality?
               </h2>
-              <p className="mx-auto mt-3 max-w-lg text-slate-600">
+              <p className="mt-4 text-base text-slate-600 sm:text-lg">
                 Tell us about your application — our team will recommend the right filters and media for your facility.
               </p>
-              <a
-                href="mailto:info@southpacificfilters.com"
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0B3D4A] px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
-              >
-                Contact sales
-              </a>
+            </div>
+
+            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+              {/* Contact Form - Left Side */}
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <form className="space-y-5">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-700">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                      placeholder="Your full name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                      placeholder="your.email@company.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
+                      placeholder="+679 XXX XXXX"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700">
+                      Message <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={5}
+                      required
+                      className="mt-2 block w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 resize-none"
+                      placeholder="Tell us about your filtration requirements..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[#0B3D4A] px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </div>
+
+              {/* Contact Information - Right Side */}
+              <div className="flex flex-col gap-5">
+                {/* Email & Phone Container */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                  <div className="mb-6">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B3D4A] text-teal-200">
+                      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                      </svg>
+                    </div>
+                    <h3 className="font-display text-lg font-semibold text-slate-900">Email Us</h3>
+                    <p className="mt-2 text-sm text-slate-600">
+                      For general inquiries and quotes
+                    </p>
+                    <a
+                      href="mailto:info@southpacificfilters.com"
+                      className="mt-3 inline-flex text-sm font-medium text-teal-700 transition hover:text-teal-800"
+                    >
+                      info@southpacificfilters.com
+                    </a>
+                  </div>
+
+                  <div className="border-t border-slate-200 pt-6">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B3D4A] text-teal-200">
+                      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-display text-lg font-semibold text-slate-900">Call Us</h3>
+                    <p className="mt-2 text-sm text-slate-600">
+                      Mon-Fri from 8am to 5pm
+                    </p>
+                    <a
+                      href="tel:+6793301234"
+                      className="mt-3 inline-flex text-sm font-medium text-teal-700 transition hover:text-teal-800"
+                    >
+                      +679 330 1234
+                    </a>
+                  </div>
+                </div>
+
+                
+              </div>
             </div>
           </div>
         </section>
