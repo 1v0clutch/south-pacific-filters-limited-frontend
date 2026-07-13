@@ -9,7 +9,7 @@ function Home() {
 
   const heroRef = useRef<HTMLElement>(null)
 
-  /* Hero parallax — disabled when user prefers reduced motion */
+  /* Hero parallax — disabled when user prefers reduced motion test*/
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const syncMotion = () => setReduceMotion(motionQuery.matches)
