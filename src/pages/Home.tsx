@@ -74,7 +74,7 @@ const locations = [
 export default function Home() {
   return (
     <Layout>
-      {/* Hero */}
+      {/* Heroes */}
       <section
           id="home"
           className="relative overflow-hidden bg-[#064e3b] text-white"
