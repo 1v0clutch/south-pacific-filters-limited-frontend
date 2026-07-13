@@ -159,7 +159,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Quick Stats / Trust */}
+        {/* Quick Stats / Trust add */}
         <section className="border-b border-slate-200 bg-white" aria-labelledby="stats-heading">
           <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
             <h2 id="stats-heading" className="sr-only">
