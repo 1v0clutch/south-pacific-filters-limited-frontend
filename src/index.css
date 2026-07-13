@@ -19,17 +19,17 @@
   --font-size-4xl: 38px;
 
   /* Color (semantic) */
-  --color-border-default: #ffffff;
-  --color-text-secondary: #1a1a1a;
-  --color-text-tertiary: #444444;
+  --color-border-default: #e4eee3;
+  --color-text-secondary: #1a2319;
+  --color-text-tertiary: #4b5949;
   --color-text-inverse: #437b3b;
-  --color-surface-base: #000000;
-  --color-surface-strong: #fcfcfc;
+  --color-surface-base: #ffffff;
+  --color-surface-strong: #f4fbf4;
 
   /* Derived for contrast (not one-off product chrome — system helpers) */
-  --color-text-on-dark: #fcfcfc;
-  --color-text-muted-on-dark: #c8c8c8;
-  --color-text-accent-on-dark: #8fbf87;
+  --color-text-on-dark: #ffffff;
+  --color-text-muted-on-dark: #d8e5d6;
+  --color-text-accent-on-dark: #9ed395;
   --color-surface-elevated: #ffffff;
   --color-border-subtle: #e5e5e5;
   --color-focus-ring: #437b3b;
