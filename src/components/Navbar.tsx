@@ -59,13 +59,6 @@ function Navbar() {
     }
   }, [])
 
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [mobileOpen])
-
   /* Reduced motion detection */
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -139,7 +132,7 @@ function Navbar() {
       >
         <div className="flex items-center justify-between gap-[32px] min-h-[96px] px-[32px] lg:px-[64px] w-full relative">
           <a
-            href="#home"
+            href="/"
             className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)]"
           >
             <img
@@ -316,12 +309,14 @@ function Navbar() {
                 </div>
               </ul>
             </div>
-
-            <a href="#about" className="nav-link">
+            <a href="/#catalogue" className="nav-link">
+              Catalogue
+            </a>        
+            <a href="/#about" className="nav-link">
               About
             </a>
             <a
-              href="#contact"
+              href="/#contact"
               className="nav-link"
             >
               Contact
@@ -426,7 +421,7 @@ function Navbar() {
             </div>
 
             <a
-              href="#about"
+              href="/#about"
               className="nav-link w-full"
               onClick={closeMobile}
             >
@@ -440,7 +435,7 @@ function Navbar() {
               Catalogue
             </a>
             <a
-              href="#contact"
+              href="/#contact"
               className="nav-link w-full"
               onClick={closeMobile}
             >

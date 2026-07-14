@@ -6,10 +6,21 @@ import Footer from '../components/Footer'
 function Home() {
   const [heroScrollY, setHeroScrollY] = useState(0)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [enableParallax, setEnableParallax] = useState(false)
 
   const heroRef = useRef<HTMLElement>(null)
 
-  /* Hero parallax — disabled when user prefers reduced motion test*/
+  /* Check screen size for parallax — only enable on larger screens */
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setEnableParallax(window.innerWidth >= 1024)
+    }
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
+
+  /* Hero parallax — disabled when user prefers reduced motion or on small screens */
   useEffect(() => {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const syncMotion = () => setReduceMotion(motionQuery.matches)
@@ -18,7 +29,7 @@ function Home() {
 
     let frame = 0
     function onScroll() {
-      if (motionQuery.matches) return
+      if (motionQuery.matches || !enableParallax) return
       cancelAnimationFrame(frame)
       frame = requestAnimationFrame(() => {
         const hero = heroRef.current
@@ -38,9 +49,9 @@ function Home() {
       cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
     }
-  }, [])
+  }, [enableParallax])
 
-  const videoParallax = reduceMotion ? 0 : heroScrollY * 0.45
+  const videoParallax = (reduceMotion || !enableParallax) ? 0 : heroScrollY * 0.45
 
   return (
     <div className="min-h-screen bg-[var(--color-surface-strong)]">
@@ -181,7 +192,7 @@ function Home() {
         </section>
 
         {/* Pre-Footer CTA */}
-        <section className="py-[96px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[var(--color-surface-base)] text-[var(--color-text-secondary)] border-t border-[var(--color-border-subtle)]">
+        <section id="catalogue" className="py-[96px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[var(--color-surface-base)] text-[var(--color-text-secondary)] border-t border-[var(--color-border-subtle)]">
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-[40px]">
             <h2
               className="m-0 text-[48px] leading-[56px] tracking-[-0.02em] font-[800] uppercase"
@@ -202,6 +213,187 @@ function Home() {
               >
                 Download Catalog PDF
               </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Form Section */}
+        <section 
+          id="contact" 
+          className="py-[64px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[#f0fdf4] border-t border-[var(--color-border-subtle)]"
+        >
+          <div className="container-fd mx-auto">
+            {/* Section Header */}
+            <div className="mb-[40px] text-center">
+              <span
+                className="inline-block px-[12px] py-[6px] border border-emerald-700 text-emerald-700 text-[11px] leading-[16px] tracking-[0.05em] uppercase font-medium bg-emerald-700/10 rounded-[4px] mb-[12px]"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                Get in Touch
+              </span>
+              <h2
+                className="m-0 text-[32px] leading-[40px] tracking-[-0.02em] font-[800] uppercase text-[var(--color-text-secondary)] mb-[12px]"
+                style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
+              >
+                Contact Our Team
+              </h2>
+              <p
+                className="m-0 text-[16px] leading-[24px] text-[var(--color-text-tertiary)] max-w-xl mx-auto font-normal"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Tell us about your filtration requirements — our engineering team will recommend the right solutions for your facility.
+              </p>
+            </div>
+
+            {/* Form and Contact Info Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[40px] max-w-6xl mx-auto">
+              {/* Left Side - Contact Form */}
+              <div className="bg-white border border-slate-200 rounded-[4px] p-[32px] shadow-sm">
+                <form className="space-y-[20px]">
+                  <div>
+                    <label 
+                      htmlFor="contact-name" 
+                      className="block text-[12px] leading-[16px] font-medium text-[var(--color-text-secondary)] mb-[6px] uppercase tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      required
+                      className="w-full px-[12px] py-[10px] border border-slate-300 rounded-[4px] text-[14px] leading-[20px] text-[var(--color-text-secondary)] bg-white focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-colors"
+                      placeholder="Your full name"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label 
+                      htmlFor="contact-email" 
+                      className="block text-[12px] leading-[16px] font-medium text-[var(--color-text-secondary)] mb-[6px] uppercase tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="contact-email"
+                      name="email"
+                      required
+                      className="w-full px-[12px] py-[10px] border border-slate-300 rounded-[4px] text-[14px] leading-[20px] text-[var(--color-text-secondary)] bg-white focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-colors"
+                      placeholder="your.email@company.com"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label 
+                      htmlFor="contact-phone" 
+                      className="block text-[12px] leading-[16px] font-medium text-[var(--color-text-secondary)] mb-[6px] uppercase tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="contact-phone"
+                      name="phone"
+                      className="w-full px-[12px] py-[10px] border border-slate-300 rounded-[4px] text-[14px] leading-[20px] text-[var(--color-text-secondary)] bg-white focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-colors"
+                      placeholder="+679 XXX XXXX"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    />
+                  </div>
+
+                  <div>
+                    <label 
+                      htmlFor="contact-message" 
+                      className="block text-[12px] leading-[16px] font-medium text-[var(--color-text-secondary)] mb-[6px] uppercase tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      Message <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      rows={4}
+                      required
+                      className="w-full px-[12px] py-[10px] border border-slate-300 rounded-[4px] text-[14px] leading-[20px] text-[var(--color-text-secondary)] bg-white focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-colors resize-none"
+                      placeholder="Tell us about your filtration requirements..."
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full btn btn--primary uppercase text-[12px] leading-[16px] tracking-[0.02em] font-medium px-[32px] py-[12px] rounded-[4px] shadow-none"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </div>
+
+              {/* Right Side - Contact Information */}
+              <div className="flex flex-col gap-[20px]">
+                {/* Email & Phone Container */}
+                <div className="bg-white border border-slate-200 rounded-[4px] p-[32px] shadow-sm">
+                  <div className="mb-[24px]">
+                    <div className="mb-[12px] flex h-[40px] w-[40px] items-center justify-center rounded-[4px] bg-[#065f46] text-emerald-200">
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                      </svg>
+                    </div>
+                    <h3
+                      className="text-[16px] leading-[24px] font-[700] text-[var(--color-text-secondary)] mb-[8px] uppercase tracking-[-0.01em]"
+                      style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
+                    >
+                      Email Us
+                    </h3>
+                    <p
+                      className="text-[12px] leading-[18px] text-[var(--color-text-tertiary)] mb-[8px]"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      For general inquiries and quotes
+                    </p>
+                    <a
+                      href="mailto:info@southpacificfilters.com"
+                      className="inline-flex text-[12px] leading-[16px] font-medium text-emerald-700 hover:text-emerald-800 transition-colors no-underline tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      info@southpacificfilters.com
+                    </a>
+                  </div>
+
+                  <div className="border-t border-slate-200 pt-[24px]">
+                    <div className="mb-[12px] flex h-[40px] w-[40px] items-center justify-center rounded-[4px] bg-[#065f46] text-emerald-200">
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                      </svg>
+                    </div>
+                    <h3
+                      className="text-[16px] leading-[24px] font-[700] text-[var(--color-text-secondary)] mb-[8px] uppercase tracking-[-0.01em]"
+                      style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
+                    >
+                      Call Us
+                    </h3>
+                    <p
+                      className="text-[12px] leading-[18px] text-[var(--color-text-tertiary)] mb-[8px]"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      Mon-Fri from 8am to 5pm
+                    </p>
+                    <a
+                      href="tel:+6793301234"
+                      className="inline-flex text-[12px] leading-[16px] font-medium text-emerald-700 hover:text-emerald-800 transition-colors no-underline tracking-[0.02em]"
+                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                    >
+                      +679 330 1234
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
