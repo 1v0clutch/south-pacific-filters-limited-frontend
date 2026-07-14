@@ -9,16 +9,17 @@ const airFilterItems = [
   { label: 'Pocket / Bag Filters', href: '/products/pocket-filters' },
   { label: 'HEPA Filters', href: '/products/hepa-filters' },
   { label: 'Carbon Filters', href: '/products/carbon-filters' },
+  { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters' },
+  { label: 'Compact Filters', href: '/products/compact-filters' },
+  { label: 'Spray Booth Filters', href: '/products/spray-booth-filters' },
   { label: 'HVAC Filters', href: '/products/hvac-filters' },
   { label: 'Holding Frames', href: '/products/holding-frames' },
 ]
 
 const filterMediaItems = [
+  { label: 'Cooler Media', href: '/products/cooler-media' },
+  { label: 'Spray Booth Media', href: '/products/spray-booth-media' },
   { label: 'Synthetic Media', href: '/products/synthetic-media' },
-  { label: 'Glass Fibre', href: '/products/glass-fibre' },
-  { label: 'Activated Carbon Media', href: '/products/activated-carbon' },
-  { label: 'Fibreglass Media Rolls', href: '/products/fibreglass-rolls' },
-  { label: 'Spray Booth Filters', href: '/products/spray-booth' },
 ]
 
 function Navbar() {
