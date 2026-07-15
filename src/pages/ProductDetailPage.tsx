@@ -123,12 +123,11 @@ function ProductDetailPage() {
                     {product.description}
                   </p>
                 </div>
-
-                {/* Advantages - Only render if advantages exist */}
+                {/* Advantages */}
                 {product.advantages && product.advantages.length > 0 && (
                   <div>
                     <h2 
-                      className="m-0 text-[24px] leading-[32px] font-semibold text-(--color-text-secondary) mb-[16px] uppercase tracking-[0.01em]"
+                      className="m-0 text-[24px] leading-[32px] font-[600] text-[var(--color-text-secondary)] mb-[16px] uppercase tracking-[0.01em]"
                       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
                     >
                       Advantages
@@ -137,11 +136,11 @@ function ProductDetailPage() {
                       {product.advantages.map((advantage, index) => (
                         <li 
                           key={index}
-                          className="flex items-start gap-[12px] text-[16px] leading-[24px] text-(--color-text-tertiary)"
+                          className="flex items-start gap-[12px] text-[16px] leading-[24px] text-[var(--color-text-tertiary)]"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           <span 
-                            className="w-[6px] h-[6px] bg-(--color-text-accent) rounded-full mt-[9px] shrink-0"
+                            className="w-[6px] h-[6px] bg-[var(--color-text-accent)] rounded-full mt-[9px] flex-shrink-0"
                             aria-hidden="true"
                           />
                           {advantage}
@@ -151,56 +150,27 @@ function ProductDetailPage() {
                   </div>
                 )}
 
-                {/* General Specifications - Only render if generalSpecs exist */}
-                {product.generalSpecs && Object.keys(product.generalSpecs).length > 0 && (
+                {/* Specifications */}
+                {((product.specifications && Object.keys(product.specifications).length > 0) || 
+                  (product.generalSpecs && Object.keys(product.generalSpecs).length > 0)) && (
                   <div>
                     <h2 
-                      className="m-0 text-[24px] leading-[32px] font-semibold text-(--color-text-secondary) mb-[16px] uppercase tracking-[0.01em]"
-                      style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
-                    >
-                      General Specifications
-                    </h2>
-                    <div className="space-y-[16px]">
-                      {Object.entries(product.generalSpecs).map(([key, value]) => (
-                        <div key={key} className="flex flex-col sm:flex-row sm:items-center gap-[4px] sm:gap-[16px] py-[12px] border-b border-(--color-border-subtle)">
-                          <dt 
-                            className="text-[14px] leading-[20px] font-medium text-(--color-text-secondary) min-w-[160px] uppercase tracking-[0.02em]"
-                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                          >
-                            {key}:
-                          </dt>
-                          <dd 
-                            className="m-0 text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
-                            style={{ fontFamily: "'Inter', sans-serif" }}
-                          >
-                            {value}
-                          </dd>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Legacy Specifications - Only render if specifications exist */}
-                {product.specifications && Object.keys(product.specifications).length > 0 && (
-                  <div>
-                    <h2 
-                      className="m-0 text-[24px] leading-[32px] font-semibold text-(--color-text-secondary) mb-[16px] uppercase tracking-[0.01em]"
+                      className="m-0 text-[24px] leading-[32px] font-[600] text-[var(--color-text-secondary)] mb-[16px] uppercase tracking-[0.01em]"
                       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
                     >
                       Specifications
                     </h2>
                     <div className="space-y-[16px]">
-                      {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key} className="flex flex-col sm:flex-row sm:items-center gap-[4px] sm:gap-[16px] py-[12px] border-b border-(--color-border-subtle)">
+                      {Object.entries(product.specifications || product.generalSpecs || {}).map(([key, value]) => (
+                        <div key={key} className="flex flex-col sm:flex-row sm:items-center gap-[4px] sm:gap-[16px] py-[12px] border-b border-[var(--color-border-subtle)]">
                           <dt 
-                            className="text-[14px] leading-[20px] font-medium text-(--color-text-secondary) min-w-[160px] uppercase tracking-wider"
+                            className="text-[14px] leading-[20px] font-medium text-[var(--color-text-secondary)] min-w-[160px] uppercase tracking-[0.02em]"
                             style={{ fontFamily: "'JetBrains Mono', monospace" }}
                           >
                             {key}:
                           </dt>
                           <dd 
-                            className="m-0 text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="m-0 text-[14px] leading-[20px] text-[var(--color-text-tertiary)] font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {value}
@@ -254,7 +224,7 @@ function ProductDetailPage() {
                               className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
                               style={{ fontFamily: "'Inter', sans-serif" }}
                             >
-                              {row[header] || 'N/A'}
+                              {Array.isArray(row) ? row[cellIndex] : (row[header] || 'N/A')}
                             </td>
                           ))}
                         </tr>
@@ -388,12 +358,12 @@ function ProductDetailPage() {
                   </table>
                 )}
               </div>
-          </div>
-        </section>
+            </div>
+          </section>
         )}
       </main>
-
       <Footer />
+      
     </div>
   )
 }

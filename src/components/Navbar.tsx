@@ -6,20 +6,20 @@ type DropdownKey = 'airFilters' | 'filterMedia' | null
 
 const airFilterItems = [
   { label: 'Panel Filters', href: '/products/panel-filters' },
-  { label: 'Pocket / Bag Filters', href: '/products/pocket-filters' },
+  { label: 'Bag Filters', href: '/products/bag-filters' },
   { label: 'HEPA Filters', href: '/products/hepa-filters' },
-  { label: 'Carbon Filters', href: '/products/carbon-filters' },
   { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters' },
   { label: 'Compact Filters', href: '/products/compact-filters' },
   { label: 'Spray Booth Filters', href: '/products/spray-booth-filters' },
-  { label: 'HVAC Filters', href: '/products/hvac-filters' },
+  { label: 'Grease Filters', href: '/products/grease-filters' },
   { label: 'Holding Frames', href: '/products/holding-frames' },
+  { label: 'Home Ventilation', href: '/products/home-ventilation' },
 ]
 
 const filterMediaItems = [
   { label: 'Cooler Media', href: '/products/cooler-media' },
   { label: 'Spray Booth Media', href: '/products/spray-booth-media' },
-  { label: 'Synthetic Media', href: '/products/synthetic-media' },
+  { label: 'Synthetic Media', href: '/products/synthetic-media' }
 ]
 
 function Navbar() {
