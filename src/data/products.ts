@@ -1,6 +1,39 @@
 // Product Data Structure for SPFL Website
 // Generated from checklist-client.txt
 
+// Product Images
+import HSB25SeriesImg from '../assets/HSB25-Series.png';
+import HSB35SeriesImg from '../assets/HSB35-Series.webp';
+import HSB55SeriesImg from '../assets/HSB55-Series.png';
+import LSB80SeriesImg from '../assets/LSB80-Series.webp';
+import LSB90SeriesImg from '../assets/LSB90-Series.png';
+import HQ85SeriesImg from '../assets/HQ85-Series.png';
+import HQ98SeriesImg from '../assets/HQ98-Series.png';
+import HDSeriesImg from '../assets/HD-Series__High_Airflow_Rigid_Bags.png';
+import HEPAHLAESeriesImg from '../assets/HEPA HLA-E Series.webp';
+import HEPAHLAGSeriesImg from '../assets/HEPA HLA-G Series.webp';
+import HEPAHLALSeriesImg from '../assets/HEPA HLA-L Series.webp';
+import HEPAHPGSeriesImg from '../assets/HEPA HPG-Series.png';
+import HEPAHVGSeriesImg from '../assets/HEPA_HVG-Series.png';
+import HEPAHVSSeriesImg from '../assets/HEPA_HVS-Series.png';
+import PBSeriesImg from '../assets/PB_Series.png';
+import VPleatPanelFiltersImg from '../assets/V-Pleat_Panel_Filters.png';
+import DisposablePanelFiltersImg from '../assets/Disposable_Panel_Filters.png';
+import FlatPanelFiltersImg from '../assets/Flat_Panel_Filters.png';
+import AquaPleatPanelsImg from '../assets/AquaPleat Panels.webp';
+import MiniPleatPanelFiltersImg from '../assets/MiniPleat_Panel_Filters.png';
+import EcoVPleatImg from '../assets/Eco-V-Pleat.webp';
+import HoneycombGreaseFilterImg from '../assets/Honeycomb_Grease_Filter.png';
+import StainlessSteelMeshGreaseFilterImg from '../assets/Stainless_Steel_Mesh_Grease_Filter.png';
+import HFActivatedCarbonHoldingFramesImg from '../assets/HF_Activated_Carbon_Holding_Frames.png';
+import HFHEPAHoldingFramesImg from '../assets/HF HEPA Holding Frames.webp';
+import UniversalHoldingFramesImg from '../assets/Universal Holding Frames.webp';
+import HRVGeneration1FilterImg from '../assets/HRV-Generation 1 Filter.webp';
+import HRVGeneration2FilterImg from '../assets/HRV-Generation 2 Filter.png';
+import HRVSmartventFilterImg from '../assets/HRV-Smartvent Filter.webp';
+import HRVHVFilterImg from '../assets/HRV-HV Filter.webp';
+import LSB60SeriesImg from '../assets/LSB60-Series.webp';
+
 export interface CustomTable {
   headers: string[];
   rows: Record<string, string>[] | string[][];
@@ -15,6 +48,7 @@ export interface Product {
   name: string;
   cardDescription: string;
   description: string;
+  image?: string;
   advantages?: string[];
   generalSpecs?: GeneralSpecs;
   customTable?: CustomTable;
@@ -40,6 +74,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hsb25-series',
     name: 'HSB25-Series',
+    image: HSB25SeriesImg,
     cardDescription: 'G3 (EN779) or ISO Coarse 50% - Totally combustible with lightweight frame',
     description: 'HSB25 Series Bag Filter is a synthetic bag filter suitable for dust loading applications in Commercial and Industrial environments. Featuring totally combustible construction with a lightweight plastic frame and synthetic media.',
     advantages: [
@@ -73,6 +108,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hsb35-series',
     name: 'HSB35-Series',
+    image: HSB35SeriesImg,
     cardDescription: 'G4 (EN779) or ISO Coarse 70% - Pre-filter or fine-filter for air conditioning systems',
     description: 'HSB35 Series Bag Filter is used as a pre-filter or fine-filter in air conditioning systems among other things air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry. The filter media are made from both polymer and glass fibres. They have ultrasonically welded leak-tight bags, assembled in a polyurethane frame. Bag filters are resistant to temperatures of up to 70°C.',
     advantages: [
@@ -106,6 +142,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hsb55-series',
     name: 'HSB55-Series',
+    image: HSB55SeriesImg,
     cardDescription: 'M5 (EN779) or ISO Coarse 80% - Pre-filter or fine filter for air conditioning systems',
     description: 'HSB55 Series Bag Filter is used as a pre-filter or fine filter in air conditioning systems among other things, air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry.',
     advantages: [
@@ -139,6 +176,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'lsb60-series',
     name: 'LSB60-Series',
+    image: LSB60SeriesImg,
     cardDescription: 'M6 (EN779) or ePM10 70% - Pre-filter or fine filter for cleanrooms',
     description: 'LSB60 Series Bag Filter is a pre-filter or fine filter, used in air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry.',
     advantages: [
@@ -169,6 +207,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'lsb80-series',
     name: 'LSB80-Series',
+    image: LSB80SeriesImg,
     cardDescription: 'F7 (EN779) or ePM2.5 70% - Fine filter with constant efficiency',
     description: 'The filter media, made from both polymer and glass fibres, are assembled in a robust plastic, steel or aluminium frame.',
     advantages: [
@@ -203,6 +242,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'lsb90-series',
     name: 'LSB90-Series',
+    image: LSB90SeriesImg,
     cardDescription: 'F8 (EN779) or ePM1 70% - Fine filter for cleanrooms and pharmaceuticals',
     description: 'Bag filters are used in air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry.',
     advantages: [
@@ -232,6 +272,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hq85-series',
     name: 'HQ85-Series',
+    image: HQ85SeriesImg,
     cardDescription: 'F7 (EN779) or ePM2.5 70% - Lightweight with high dust-holding capacity',
     description: 'The HQ85 bag filter is used in air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry. The filter media, made from both polymer and glass fibres, are assembled in a robust galvanised steel or aluminium frame.',
     advantages: [
@@ -263,6 +304,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hq98-series',
     name: 'HQ98-Series',
+    image: HQ98SeriesImg,
     cardDescription: 'F9 (EN779) or ePM1 85% - High efficiency with constant performance',
     description: 'HQ98-Series fibreglass pocket filter designed for fine filtration in HVAC and industrial applications. Features high dust-holding capacity and constant efficiency with glasfiber media in an aluminium frame.',
     advantages: [
@@ -295,6 +337,7 @@ const bagFiltersProducts: Product[] = [
   {
     id: 'hd-series',
     name: 'HD-Series (High Airflow Rigid Bags)',
+    image: HDSeriesImg,
     cardDescription: 'G4, M5, M6, F7 - Withstands extreme pressure with unique self supporting filter medium',
     description: 'HD-Series bag filters are assembled within a polystyrene frame and a glasfiber media. Used for fine filters HVAC, industrial applications with high airflow requirements.',
     advantages: [
@@ -342,6 +385,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hla-e-series',
     name: 'HEPA HLA-E Series',
+    image: HEPAHLAESeriesImg,
     cardDescription: 'H13, H14 - Lightweight construction for cleanrooms and operating rooms',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -375,6 +419,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hla-g-series',
     name: 'HEPA HLA-G Series',
+    image: HEPAHLAGSeriesImg,
     cardDescription: 'H13, H14 - Lightweight construction for cleanrooms and operating rooms',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -408,6 +453,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hla-l-series',
     name: 'HEPA HLA-L Series',
+    image: HEPAHLALSeriesImg,
     cardDescription: 'H13, H14 - Lightweight construction for cleanrooms and operating rooms',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -441,6 +487,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hpg-series',
     name: 'HEPA HPG-Series',
+    image: HEPAHPGSeriesImg,
     cardDescription: 'H13, H14 - Firm frame for cleanrooms, asbestos remediation, and operating rooms',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -485,6 +532,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hvg-series',
     name: 'HEPA HVG-Series',
+    image: HEPAHVGSeriesImg,
     cardDescription: 'H13, H14 - Low pressure drop with high air flows',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -530,6 +578,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'hvs-series',
     name: 'HEPA HVS-Series',
+    image: HEPAHVSSeriesImg,
     cardDescription: 'H13, H14 - Low pressure drop with high air flows',
     description: 'The HEPA filters are checked for leak proofness at the end of the production process. It is advised to validate the functioning of the air-handling units after installation of the new HEPA filters, because of possible damages during transport or installation.',
     advantages: [
@@ -575,6 +624,7 @@ const hepaFiltersProducts: Product[] = [
   {
     id: 'pb-series',
     name: 'PB Series',
+    image: PBSeriesImg,
     cardDescription: 'F8, F9, H10, H12, H13 - Compact construction for air conditioning and ventilation',
     description: 'HEPA Filter PB series is used for air conditioning and ventilation systems and for industrial processes, cleanrooms and operating rooms.',
     advantages: [
@@ -616,6 +666,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'v-pleat-panel',
     name: 'V-Pleat Panel Filters',
+    image: VPleatPanelFiltersImg,
     cardDescription: 'G2, G3, G4 & M5 - Custom Aluminium or S/S pleated panel filters',
     description: 'V-Pleat Panel filters are pleated filters which are assembled within a galvanized steel frame and a synthetic media.',
     advantages: [
@@ -668,6 +719,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'disposable-panel',
     name: 'Disposable Panel Filters',
+    image: DisposablePanelFiltersImg,
     cardDescription: 'G4 (EN799) or ISO coarse 70% - Versatile cardboard prefilters',
     description: 'DF Panel filter is used as a pre-filter for air spray booths, air conditioning systems and industrial systems. This panel filter is a pleated filter which is assembled within a moisture-resistant cardboard frame.',
     advantages: [
@@ -718,6 +770,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'flat-panel',
     name: 'Flat Panel Filters',
+    image: FlatPanelFiltersImg,
     cardDescription: 'G2, G3, G4 & M5 - Custom Aluminium flat panel filters',
     description: 'Our aluminum flat panel filters are manufactured on request to any dimension required. The panels can be manufactured with any of the filter media classifications listed below in an 8mm, 11mm and 22mm thick frame.',
     advantages: [
@@ -746,6 +799,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'aquapleat-panel',
     name: 'AquaPleat Panels',
+    image: AquaPleatPanelsImg,
     cardDescription: 'G4(EN799) or ISO coarse 70% - Unique plastic frame with hydrophobic media',
     description: 'AQUA Panel filter is a pleated filter which is assembled in a plastic frame. Its unique self-supporting filter medium protects the last filtration step from humidity.',
     advantages: [
@@ -788,6 +842,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'minipleat-panel',
     name: 'MiniPleat Panel Filters',
+    image: MiniPleatPanelFiltersImg,
     cardDescription: 'F7 & F9 - High efficiency Panel Filters',
     description: 'CP Panel Filter and the panel filters are pleated filters which are assembled within a plastic frame.',
     advantages: [
@@ -828,6 +883,7 @@ const panelFiltersProducts: Product[] = [
   {
     id: 'eco-v-pleat',
     name: 'Eco-V-Pleat',
+    image: EcoVPleatImg,
     cardDescription: 'G4 (EN799) or ISO course 70% - Totally combustible with unique self-supporting filter medium',
     description: 'Eco-V-Pleat Panel filter is a pleated filter assembled in a plastic frame. Its unique self-supporting filter medium protects the last filtration step from humidity.',
     advantages: [
@@ -878,6 +934,7 @@ const greaseFiltersProducts: Product[] = [
   {
     id: 'honeycomb-grease',
     name: 'Honeycomb Grease Filter',
+    image: HoneycombGreaseFilterImg,
     cardDescription: 'The most preferred filter to capture cooking oils in kitchens',
     description: 'By far the most preferred filter to capture cooking oils used in kitchens today. This filter is a strong durable element and because it is fully washable it becomes a very economical choice. Available in a variety of sizes to suit most kitchen hoods.',
     advantages: [
@@ -897,6 +954,7 @@ const greaseFiltersProducts: Product[] = [
   {
     id: 'ss-mesh-grease',
     name: 'Stainless Steel Mesh Grease Filter',
+    image: StainlessSteelMeshGreaseFilterImg,
     cardDescription: 'Suitable for use in difficult operating conditions',
     description: 'Designed for Tough Applications - Filters Direct permanent metal filters are suitable for use in very difficult operating conditions including high velocity (up to 900 FPM), high temperature, high moisture, corrosive environments, oil or grease laden air. Permanent metal filters can be cleaned by flushing with a hose, washing in warm soapy water or steam cleaned. Allow filters to dry then re‐install. With proper care and handling, metal filters can provide years of dependable service.',
     advantages: [
@@ -928,6 +986,7 @@ const holdingFramesProducts: Product[] = [
   {
     id: 'hf-activated-carbon',
     name: 'HF Activated Carbon Holding Frames',
+    image: HFActivatedCarbonHoldingFramesImg,
     cardDescription: 'Used for Airports, Museums and Industry',
     description: 'Activated Carbon holding frames have standard dimensions and are a good replacement for the used holding frames removed during the renovation of air treatment cabinets.',
     advantages: [
@@ -958,6 +1017,7 @@ const holdingFramesProducts: Product[] = [
   {
     id: 'hf-hepa',
     name: 'HF HEPA Holding Frames',
+    image: HFHEPAHoldingFramesImg,
     cardDescription: 'Used for cleanrooms, hospitals and gas turbines',
     description: 'HF Hepa holding frames have standard dimensions and are a good replacement for the used holding frames removed during the renovation of air treatment cabinets.',
     advantages: [
@@ -986,6 +1046,7 @@ const holdingFramesProducts: Product[] = [
   {
     id: 'universal-holding-frames',
     name: 'Universal Holding Frames',
+    image: UniversalHoldingFramesImg,
     cardDescription: 'Used for HVAC and industry',
     description: 'Filter holding frames suited to house an array of different filter combinations.',
     advantages: [
@@ -1019,6 +1080,7 @@ const homeVentilationProducts: Product[] = [
   {
     id: 'hrv-gen1',
     name: 'HRV - Generation 1 Filter',
+    image: HRVGeneration1FilterImg,
     cardDescription: 'F7 / eMP1 60% - Latest filters for newest HRV home ventilation units',
     description: 'These are the latest filters for the newest HRV home ventilation units. Dimensions: 305x295x95mm',
     advantages: [
@@ -1039,6 +1101,7 @@ const homeVentilationProducts: Product[] = [
   {
     id: 'hrv-gen2',
     name: 'HRV - Generation 2 Filter',
+    image: HRVGeneration2FilterImg,
     cardDescription: 'F8 / eMP1 70% - Latest filters for newest HRV home ventilation units',
     description: 'These are the latest filters for the newest HRV home ventilation units. Dimensions: 300x295x95mm',
     advantages: [
@@ -1059,6 +1122,7 @@ const homeVentilationProducts: Product[] = [
   {
     id: 'hrv-smartvent',
     name: 'HRV - Smartvent Filter',
+    image: HRVSmartventFilterImg,
     cardDescription: 'F8 / eMP1 70% - Second most common replacement filter for HRV units',
     description: 'Second most common replacement filter for the HRV units. Dimensions: 288x288x150mm',
     advantages: [
@@ -1079,6 +1143,7 @@ const homeVentilationProducts: Product[] = [
   {
     id: 'hrv-hv',
     name: 'HRV - HV Filter',
+    image: HRVHVFilterImg,
     cardDescription: 'F7 / eMP1 80% - The most common HRV Filter',
     description: 'This is the most common HRV Filter. Dimensions: 295x300x130mm',
     advantages: [
