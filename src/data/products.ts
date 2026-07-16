@@ -304,7 +304,7 @@ const bagFiltersProducts: Product[] = [
   // 2. Fibreglass Pocket Filters
   {
     id: 'hq85-series',
-    name: 'HQ85-Series',
+    name: 'HQ85-Series (Fibreglass Bag Filters)',
     image: hq85Series,
     cardDescription: 'F7 (EN779) or ePM2.5 70% - Lightweight with high dust-holding capacity',
     description: 'The HQ85 bag filter is used in air treatment cabinets, air conditioning systems, public areas, and as a pre-filter in cleanrooms and the pharmaceuticals industry. The filter media, made from both polymer and glass fibres, are assembled in a robust galvanised steel or aluminium frame.',
@@ -336,7 +336,7 @@ const bagFiltersProducts: Product[] = [
   },
   {
     id: 'hq98-series',
-    name: 'HQ98-Series',
+    name: 'HQ98-Series (Fibreglass Bag Filters)',
     image: hq98Series,
     cardDescription: 'F9 (EN779) or ePM1 85% - High efficiency with constant performance',
     description: 'HQ98-Series fibreglass pocket filter designed for fine filtration in HVAC and industrial applications. Features high dust-holding capacity and constant efficiency with glasfiber media in an aluminium frame.',
@@ -369,7 +369,7 @@ const bagFiltersProducts: Product[] = [
   // 3. Rigid Pocket Filters
   {
     id: 'hd-series',
-    name: 'HD-Series (High Airflow Rigid Bags)',
+    name: 'HD-Series (Rigid Pocket Filter Bags)',
     image: hdSeries,
     cardDescription: 'G4, M5, M6, F7 - Withstands extreme pressure with unique self supporting filter medium',
     description: 'HD-Series bag filters are assembled within a polystyrene frame and a glasfiber media. Used for fine filters HVAC, industrial applications with high airflow requirements.',
