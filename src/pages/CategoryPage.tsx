@@ -69,19 +69,27 @@ function CategoryPage() {
                   to={`/products/${category}/${product.id}`}
                   className="group block no-underline bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-[8px] overflow-hidden hover:shadow-lg transition-all duration-200 hover:border-(--color-text-inverse)"
                 >
-                  {/* Product Image Placeholder */}
-                  <div className="aspect-4/3 bg-(--color-surface-strong) border-b border-(--color-border-subtle) flex items-center justify-center relative">
-                    <div 
-                      className="w-[120px] h-[120px] border-2 border-dashed border-(--color-text-tertiary) rounded-[4px] flex items-center justify-center"
-                      aria-hidden="true"
-                    >
-                      <span 
-                        className="text-(--color-text-tertiary) text-[12px] uppercase tracking-wider font-medium"
-                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                 {/* Product Image */}
+                  <div className="aspect-4/3 bg-(--color-surface-strong) border-b border-(--color-border-subtle) flex items-center justify-center">
+                    {product.image ? (
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="max-w-[70%] max-h-[70%] object-contain"
+                      />
+                    ) : (
+                      <div 
+                        className="w-[120px] h-[120px] border-2 border-dashed border-(--color-text-tertiary) rounded-[4px] flex items-center justify-center"
+                        aria-hidden="true"
                       >
-                        Image
-                      </span>
-                    </div>
+                        <span 
+                          className="text-(--color-text-tertiary) text-[12px] uppercase tracking-wider font-medium"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Image
+                        </span>
+                      </div>
+                    )}
                   </div>
                   
                   {/* Product Info */}
