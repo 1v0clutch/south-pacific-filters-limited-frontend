@@ -1,39 +1,37 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
-import logo from '../assets/logo.png'
-
-// Import product images (using lowercase extension for TypeScript)
-import panelFiltersImg from '../assets/panel-filters.PNG?url'
-import bagFiltersImg from '../assets/bag-filters.PNG?url'
-import hepaFiltersImg from '../assets/hepa-filters.PNG?url'
-import activatedCarbonImg from '../assets/activated-carbon-filters.PNG?url'
-import compactFiltersImg from '../assets/compact-filters.PNG?url'
-import sprayBoothFiltersImg from '../assets/spray-booth-filters.PNG?url'
-import greaseFiltersImg from '../assets/grease-filters.PNG?url'
-import holdingFramesImg from '../assets/holding-frames.PNG?url'
-import homeVentilationImg from '../assets/home-ventilation.PNG?url'
-import coolerMediaImg from '../assets/cooler-media.PNG?url'
-import sprayBoothMediaImg from '../assets/spray-booth-media.PNG?url'
-import syntheticMediaImg from '../assets/synthetic-media.PNG?url'
+import logo from '../assets/brand/logo.png'
+import panelFiltersCat from '../assets/panel-filters/category.png'
+import bagFiltersCat from '../assets/bag-filters/category.png'
+import hepaFiltersCat from '../assets/hepa-filters/category.png'
+import activatedCarbonCat from '../assets/activated-carbon-filters/category.png'
+import compactFiltersCat from '../assets/compact-filters/category.png'
+import sprayBoothFiltersCat from '../assets/spray-booth-filters/category.png'
+import greaseFiltersCat from '../assets/grease-filters/category.png'
+import holdingFramesCat from '../assets/holding-frames/category.png'
+import homeVentilationCat from '../assets/home-ventilation/category.png'
+import coolerMediaCat from '../assets/filter-media/cooler-media/category.png'
+import sprayBoothMediaCat from '../assets/filter-media/spray-booth-media/category.png'
+import syntheticMediaCat from '../assets/filter-media/synthetic-media/category.png'
 
 type DropdownKey = 'airFilters' | 'filterMedia' | null
 
 const airFilterItems = [
-  { label: 'Panel Filters', href: '/products/panel-filters', image: panelFiltersImg },
-  { label: 'Bag Filters', href: '/products/bag-filters', image: bagFiltersImg },
-  { label: 'HEPA Filters', href: '/products/hepa-filters', image: hepaFiltersImg },
-  { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters', image: activatedCarbonImg },
-  { label: 'Compact Filters', href: '/products/compact-filters', image: compactFiltersImg },
-  { label: 'Spray Booth Filters', href: '/products/spray-booth-filters', image: sprayBoothFiltersImg },
-  { label: 'Grease Filters', href: '/products/grease-filters', image: greaseFiltersImg },
-  { label: 'Holding Frames', href: '/products/holding-frames', image: holdingFramesImg },
-  { label: 'Home Ventilation', href: '/products/home-ventilation', image: homeVentilationImg },
+  { label: 'Panel Filters', href: '/products/panel-filters', image: panelFiltersCat },
+  { label: 'Bag Filters', href: '/products/bag-filters', image: bagFiltersCat },
+  { label: 'HEPA Filters', href: '/products/hepa-filters', image: hepaFiltersCat },
+  { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters', image: activatedCarbonCat },
+  { label: 'Compact Filters', href: '/products/compact-filters', image: compactFiltersCat },
+  { label: 'Spray Booth Filters', href: '/products/spray-booth-filters', image: sprayBoothFiltersCat },
+  { label: 'Grease Filters', href: '/products/grease-filters', image: greaseFiltersCat },
+  { label: 'Holding Frames', href: '/products/holding-frames', image: holdingFramesCat },
+  { label: 'Home Ventilation', href: '/products/home-ventilation', image: homeVentilationCat },
 ]
 
 const filterMediaItems = [
-  { label: 'Cooler Media', href: '/products/cooler-media', image: coolerMediaImg },
-  { label: 'Spray Booth Media', href: '/products/spray-booth-media', image: sprayBoothMediaImg },
-  { label: 'Synthetic Media', href: '/products/synthetic-media', image: syntheticMediaImg },
+  { label: 'Cooler Media', href: '/products/cooler-media', image: coolerMediaCat },
+  { label: 'Spray Booth Media', href: '/products/spray-booth-media', image: sprayBoothMediaCat },
+  { label: 'Synthetic Media', href: '/products/synthetic-media', image: syntheticMediaCat },
 ]
 
 function Navbar() {

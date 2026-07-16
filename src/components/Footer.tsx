@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react'
-import logo from '../assets/logo.png'
+import logo from '../assets/brand/logo.png'
 import { FaFacebookF, FaInstagram } from 'react-icons/fa6'
 
 const productLinks = [
