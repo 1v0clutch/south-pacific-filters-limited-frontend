@@ -61,7 +61,7 @@ function Home() {
       <div aria-hidden="true" className="h-[96px]" />
 
       <main id="main-content">
-        {/* Hero — fullscreen video + overlay + scroll parallax */}
+        {/* Hero — fullscreen video + overlay + scroll parallaxs */}
         <section
           ref={heroRef}
           id="home"
