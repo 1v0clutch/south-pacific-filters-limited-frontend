@@ -2,24 +2,38 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import logo from '../assets/logo.png'
 
+// Import product images (using lowercase extension for TypeScript)
+import panelFiltersImg from '../assets/panel-filters.PNG?url'
+import bagFiltersImg from '../assets/bag-filters.PNG?url'
+import hepaFiltersImg from '../assets/hepa-filters.PNG?url'
+import activatedCarbonImg from '../assets/activated-carbon-filters.PNG?url'
+import compactFiltersImg from '../assets/compact-filters.PNG?url'
+import sprayBoothFiltersImg from '../assets/spray-booth-filters.PNG?url'
+import greaseFiltersImg from '../assets/grease-filters.PNG?url'
+import holdingFramesImg from '../assets/holding-frames.PNG?url'
+import homeVentilationImg from '../assets/home-ventilation.PNG?url'
+import coolerMediaImg from '../assets/cooler-media.PNG?url'
+import sprayBoothMediaImg from '../assets/spray-booth-media.PNG?url'
+import syntheticMediaImg from '../assets/synthetic-media.PNG?url'
+
 type DropdownKey = 'airFilters' | 'filterMedia' | null
 
 const airFilterItems = [
-  { label: 'Panel Filters', href: '/products/panel-filters' },
-  { label: 'Bag Filters', href: '/products/bag-filters' },
-  { label: 'HEPA Filters', href: '/products/hepa-filters' },
-  { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters' },
-  { label: 'Compact Filters', href: '/products/compact-filters' },
-  { label: 'Spray Booth Filters', href: '/products/spray-booth-filters' },
-  { label: 'Grease Filters', href: '/products/grease-filters' },
-  { label: 'Holding Frames', href: '/products/holding-frames' },
-  { label: 'Home Ventilation', href: '/products/home-ventilation' },
+  { label: 'Panel Filters', href: '/products/panel-filters', image: panelFiltersImg },
+  { label: 'Bag Filters', href: '/products/bag-filters', image: bagFiltersImg },
+  { label: 'HEPA Filters', href: '/products/hepa-filters', image: hepaFiltersImg },
+  { label: 'Activated Carbon Filters', href: '/products/activated-carbon-filters', image: activatedCarbonImg },
+  { label: 'Compact Filters', href: '/products/compact-filters', image: compactFiltersImg },
+  { label: 'Spray Booth Filters', href: '/products/spray-booth-filters', image: sprayBoothFiltersImg },
+  { label: 'Grease Filters', href: '/products/grease-filters', image: greaseFiltersImg },
+  { label: 'Holding Frames', href: '/products/holding-frames', image: holdingFramesImg },
+  { label: 'Home Ventilation', href: '/products/home-ventilation', image: homeVentilationImg },
 ]
 
 const filterMediaItems = [
-  { label: 'Cooler Media', href: '/products/cooler-media' },
-  { label: 'Spray Booth Media', href: '/products/spray-booth-media' },
-  { label: 'Synthetic Media', href: '/products/synthetic-media' }
+  { label: 'Cooler Media', href: '/products/cooler-media', image: coolerMediaImg },
+  { label: 'Spray Booth Media', href: '/products/spray-booth-media', image: sprayBoothMediaImg },
+  { label: 'Synthetic Media', href: '/products/synthetic-media', image: syntheticMediaImg },
 ]
 
 function Navbar() {
@@ -192,36 +206,18 @@ function Navbar() {
                       <a
                         href={item.href}
                         role="menuitem"
-                        className="flex flex-col items-center justify-center text-center p-[16px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-colors w-full min-h-[120px] group"
+                        className="flex flex-col items-center justify-center text-center p-[12px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-all duration-200 w-full min-h-[140px] group"
                         onClick={() => setOpenDropdown(null)}
                       >
-                        <div className="mb-[12px] flex-shrink-0">
-                          <svg
-                            width="48"
-                            height="48"
-                            viewBox="0 0 48 48"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-[48px] h-[48px]"
-                          >
-                            <rect
-                              x="8"
-                              y="8"
-                              width="32"
-                              height="32"
-                              rx="4"
-                              ry="4"
-                              stroke="var(--color-text-secondary)"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              fill="none"
-                              className="group-hover:stroke-[var(--color-text-inverse)] transition-colors"
-                            />
-                          </svg>
+                        <div className="mb-[8px] flex-shrink-0 w-full aspect-square max-w-[64px] overflow-hidden rounded-[6px] group-hover:border-[var(--color-text-inverse)] transition-all duration-200 group-hover:shadow-md">
+                          <img
+                            src={item.image}
+                            alt={item.label}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
                         </div>
                         <span
-                          className="text-[13px] leading-[18px] font-medium"
+                          className="text-[12px] leading-[16px] font-medium"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {item.label}
@@ -270,36 +266,18 @@ function Navbar() {
                       <a
                         href={item.href}
                         role="menuitem"
-                        className="flex flex-col items-center justify-center text-center p-[16px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-colors w-full min-h-[120px] group"
+                        className="flex flex-col items-center justify-center text-center p-[12px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-all duration-200 w-full min-h-[140px] group"
                         onClick={() => setOpenDropdown(null)}
                       >
-                        <div className="mb-[12px] flex-shrink-0">
-                          <svg
-                            width="48"
-                            height="48"
-                            viewBox="0 0 48 48"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-[48px] h-[48px]"
-                          >
-                            <rect
-                              x="8"
-                              y="8"
-                              width="32"
-                              height="32"
-                              rx="4"
-                              ry="4"
-                              stroke="var(--color-text-secondary)"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              fill="none"
-                              className="group-hover:stroke-[var(--color-text-inverse)] transition-colors"
-                            />
-                          </svg>
+                        <div className="mb-[8px] flex-shrink-0 w-full aspect-square max-w-[64px] overflow-hidden rounded-[6px] group-hover:border-[var(--color-text-inverse)] transition-all duration-200 group-hover:shadow-md">
+                          <img
+                            src={item.image}
+                            alt={item.label}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
                         </div>
                         <span
-                          className="text-[13px] leading-[18px] font-medium"
+                          className="text-[12px] leading-[16px] font-medium"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {item.label}
