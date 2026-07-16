@@ -91,18 +91,28 @@ function ProductDetailPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[64px]">
               {/* Left Column - Image */}
               <div className="flex flex-col">
-                <div className="aspect-square bg-(--color-surface-strong) border border-(--color-border-subtle) rounded-[8px] flex items-center justify-center mb-[24px]">
-                  <div 
-                    className="w-[200px] h-[200px] border-2 border-dashed border-(--color-text-tertiary) rounded-[8px] flex items-center justify-center"
-                    aria-hidden="true"
-                  >
-                    <span 
-                      className="text-(--color-text-tertiary) text-[14px] uppercase tracking-wider font-medium"
-                      style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                    >
-                      Product Image
-                    </span>
-                  </div>
+                <div className="aspect-square bg-(--color-surface-strong) border border-(--color-border-subtle) rounded-[8px] relative overflow-hidden mb-[24px]">
+                  {product.image ? (
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div 
+                        className="w-[200px] h-[200px] border-2 border-dashed border-(--color-text-tertiary) rounded-[8px] flex items-center justify-center"
+                        aria-hidden="true"
+                      >
+                        <span 
+                          className="text-(--color-text-tertiary) text-[14px] uppercase tracking-wider font-medium"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Product Image
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
