@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Certification from '../components/Certification'
 
 function Home() {
   const [heroScrollY, setHeroScrollY] = useState(0)
@@ -216,6 +217,9 @@ function Home() {
             </div>
           </div>
         </section>
+
+        {/* Certification Section */}
+        <Certification />
 
         {/* Contact Form Section */}
         <section 
