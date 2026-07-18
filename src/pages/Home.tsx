@@ -192,6 +192,9 @@ function Home() {
           </div>
         </section>
 
+        {/* Certification Section */}
+        <Certification />
+
         {/* Pre-Footer CTA */}
         <section id="catalogue" className="py-[96px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[var(--color-surface-base)] text-[var(--color-text-secondary)] border-t border-[var(--color-border-subtle)]">
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-[40px]">
@@ -217,9 +220,6 @@ function Home() {
             </div>
           </div>
         </section>
-
-        {/* Certification Section */}
-        <Certification />
 
         {/* Contact Form Section */}
         <section 

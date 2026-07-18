@@ -57,37 +57,10 @@ export default function Certification() {
 
         {/* Viewer area */}
         <div className="max-w-4xl mx-auto">
-          {/* Download / Open button — always visible regardless of viewport or embed support */}
-          <div className="flex justify-end mb-[16px]">
-            <a
-              href={PDF_URL}
-              download={PDF_DOWNLOAD_NAME}
-              className="btn btn--secondary uppercase text-[12px] leading-[16px] tracking-[0.02em] font-medium px-[24px] py-[10px] rounded-[4px] border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors no-underline"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              aria-label="Open or download the certification PDF"
-            >
-              <svg
-                className="inline-block w-4 h-4 mr-[8px] -mt-[1px]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 10v6m0 0-3-3m3 3 3-3M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2M12 4v6"
-                />
-              </svg>
-              Open / Download PDF
-            </a>
-          </div>
-
           {/* Inline viewer — desktop only */}
           {!isMobile ? (
             <div
-              className="w-full border border-slate-200 rounded-[4px] shadow-sm overflow-hidden bg-white"
+              className="relative w-full border border-slate-200 rounded-[4px] shadow-sm overflow-hidden bg-white"
               style={{ height: 'min(80vh, 820px)' }}
             >
               <object
@@ -130,6 +103,23 @@ export default function Certification() {
                   </a>
                 </div>
               </object>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+              >
+                <span
+                  className="select-none whitespace-nowrap text-slate-700 font-bold uppercase tracking-widest"
+                  style={{
+                    fontFamily: "'Hanken Grotesk', sans-serif",
+                    fontSize: 'clamp(14px, 2.5vw, 40px)',
+                    opacity: 0.3,
+                    transform: 'rotate(-35deg)',
+                    userSelect: 'none',
+                  }}
+                >
+                  South Pacific Filters Limited
+                </span>
+              </div>
             </div>
           ) : (
             /* Mobile: no inline viewer — just a descriptive card with the download action */
@@ -161,7 +151,7 @@ export default function Certification() {
                   className="text-[13px] leading-[20px] text-[var(--color-text-tertiary)]"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
-                  Tap the button above to open or save our quality certification document.
+                  View our quality certification document on a desktop browser for the full inline experience.
                 </p>
               </div>
             </div>
