@@ -58,7 +58,7 @@ export default function Certification() {
         {/* Viewer area */}
         <div className="max-w-4xl mx-auto">
           {/* Download / Open button — always visible regardless of viewport or embed support */}
-          <div className="flex justify-end mb-[16px]">
+          <div className="flex justify-center mb-[16px]">
             <a
               href={PDF_URL}
               download={PDF_DOWNLOAD_NAME}
@@ -84,7 +84,7 @@ export default function Certification() {
             </a>
           </div>
 
-          {/* Inline viewer — desktop only */}
+          {/* Inline viewer — desktop only
           {!isMobile ? (
             <div
               className="w-full border border-slate-200 rounded-[4px] shadow-sm overflow-hidden bg-white"
@@ -98,7 +98,7 @@ export default function Certification() {
                 aria-label="South Pacific Filters Limited certification document"
                 title="South Pacific Filters Limited - 2026 Certification"
               >
-                {/* Fallback: if the browser cannot render the PDF inline */}
+                {/* Fallback: if the browser cannot render the PDF inline 
                 <div className="flex flex-col items-center justify-center h-full gap-[16px] py-[48px] text-center px-[24px]">
                   <svg
                     className="w-12 h-12 text-slate-300"
@@ -132,7 +132,7 @@ export default function Certification() {
               </object>
             </div>
           ) : (
-            /* Mobile: no inline viewer — just a descriptive card with the download action */
+            /* Mobile: no inline viewer — just a descriptive card with the download action 
             <div className="bg-white border border-slate-200 rounded-[4px] p-[32px] shadow-sm flex flex-col items-center gap-[20px] text-center">
               <div className="flex h-[56px] w-[56px] items-center justify-center rounded-[4px] bg-[#065f46] text-emerald-200">
                 <svg
@@ -166,6 +166,7 @@ export default function Certification() {
               </div>
             </div>
           )}
+           */}
         </div>
       </div>
     </section>
