@@ -153,7 +153,7 @@ function Navbar() {
               alt="South Pacific Filters Limited"
               width={80}
               height={80}
-              className="w-25 h-25 object-contain block"
+              className="w-50 h-25 object-contain block"
             />
           </a>
 
