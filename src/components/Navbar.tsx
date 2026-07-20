@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import logo from '../assets/brand/logo.png'
+import logoMobile from '../assets/brand/logo-notitles.png'
 import panelFiltersCat from '../assets/panel-filters/category.png'
 import bagFiltersCat from '../assets/bag-filters/category.png'
 import hepaFiltersCat from '../assets/hepa-filters/category.png'
@@ -41,6 +42,7 @@ function Navbar() {
   const [mobileMediaOpen, setMobileMediaOpen] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
   const lastScrollYRef = useRef(0)
 
   const headerRef = useRef<HTMLElement>(null)
@@ -80,6 +82,17 @@ function Navbar() {
     motionQuery.addEventListener('change', syncMotion)
     return () => {
       motionQuery.removeEventListener('change', syncMotion)
+    }
+  }, [])
+
+  /* Mobile/Desktop detection */
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 1023px)')
+    const syncMobile = () => setIsMobile(mobileQuery.matches)
+    syncMobile()
+    mobileQuery.addEventListener('change', syncMobile)
+    return () => {
+      mobileQuery.removeEventListener('change', syncMobile)
     }
   }, [])
 
@@ -149,13 +162,25 @@ function Navbar() {
             className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)]"
           >
             <img
-              src={logo}
+              src={isMobile ? logoMobile : logo}
               alt="South Pacific Filters Limited"
-              width={80}
-              height={80}
-              className="w-50 h-25 object-contain block"
+              width={isMobile ? 60 : 80}
+              height={isMobile ? 60 : 80}
+              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-25 h-25'} object-contain block`}
             />
           </a>
+
+          {/* Mobile title - only shown on mobile */}
+          {isMobile && (
+            <div className="absolute left-1/2 -translate-x-1/2 text-center">
+              <h1 
+                className="text-[16px] font-bold uppercase text-[var(--color-text-secondary)]"
+                style={{ fontFamily: "'JetBrains Mono', monospace"}}
+              >
+                SP Filters Limited
+              </h1>
+            </div>
+          )}
 
           {/* Desktop navigation (primary of 3 nav regions) */}
           <nav
