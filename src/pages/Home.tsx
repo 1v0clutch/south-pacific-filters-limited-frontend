@@ -126,7 +126,7 @@ function Home() {
                 >
                   Engineered for precision and built to withstand the most demanding environments. We provide comprehensive filtration systems for air, liquid, and gas applications.
                 </p>
-                <div className="flex flex-wrap gap-[16px] pt-[8px]">
+                <div className="flex flex-wrap gap-[16px] pt-[8px] items-center justify-center">
                   <button
                     className="btn btn--primary uppercase text-[14px] leading-[20px] tracking-[0.02em] font-medium px-[40px] py-[16px] rounded-[4px] shadow-none"
                     style={{ fontFamily: "'JetBrains Mono', monospace" }}
