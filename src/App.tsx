@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import Home from './pages/Home'
 import CategoryPage from './pages/CategoryPage'
 import ProductDetailPage from './pages/ProductDetailPage'
-//Todo:
+//Todo: test
 
 function App() {
   return (

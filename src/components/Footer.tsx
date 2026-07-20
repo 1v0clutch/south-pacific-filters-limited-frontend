@@ -23,7 +23,7 @@ function Footer() {
           {/* Brand/Intro */}
           <div className="sm:col-span-2 lg:col-span-2">
             <a href="#home" className="inline-flex items-center gap-[16px] cursor-pointer no-underline">
-              <img src={logo} alt="" className="h-[48px] w-[48px] object-contain" />
+              <img src={logo} alt="" className="h-[85px] w-[85px] object-contain" />
               <span className="text-[24px] leading-[32px] font-bold text-[var(--color-text-on-dark)]">South Pacific Filters</span>
             </a>
             <p className="mt-[24px] text-[16px] leading-[30px] text-[var(--color-text-muted-on-dark)] max-w-[320px]">
