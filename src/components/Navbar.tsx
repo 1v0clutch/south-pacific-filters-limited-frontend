@@ -156,7 +156,7 @@ function Navbar() {
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
         }}
       >
-        <div className="flex items-center justify-between gap-[32px] h-[125px] px-[16px] lg:px-[64px] w-full relative">
+        <div className="flex items-center justify-between gap-[32px] h-[125px] px-[8px] lg:px-[64px] w-full relative">
           <a
             href="/"
             className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)]"
