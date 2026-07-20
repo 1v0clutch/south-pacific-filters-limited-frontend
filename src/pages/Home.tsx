@@ -104,9 +104,9 @@ function Home() {
           />
 
           {/* Overlay content (slower parallax removed to fix button bug) */}
-          <div className="relative z-10 flex h-full w-full items-center">
-            <div className="w-full max-w-full px-[16px] sm:px-[24px] lg:px-[64px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-[24px] items-center">
-              <div className="md:col-span-8 lg:col-span-7 flex flex-col items-start text-left space-y-[32px]">
+          <div className="relative z-10 flex h-full w-full items-center justify-center">
+            <div className="max-w-7xl w-full px-[16px] sm:px-[24px] lg:px-[64px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-[24px] items-center">
+              <div className="md:col-span-12 flex flex-col items-center text-center space-y-[32px]">
                 <span
                   className="inline-block px-[12px] py-[6px] border border-[var(--color-text-accent-on-dark)] text-[var(--color-text-accent-on-dark)] text-[12px] leading-[16px] tracking-[0.05em] uppercase font-medium bg-[var(--color-text-accent-on-dark)]/10 rounded-[4px]"
                   style={{ fontFamily: "'JetBrains Mono', monospace" }}
