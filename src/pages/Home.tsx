@@ -55,7 +55,7 @@ function Home() {
   const videoParallax = (reduceMotion || !enableParallax) ? 0 : heroScrollY * 0.45
 
   return (
-    <div className="min-h-screen bg-[var(--color-surface-strong)]">
+    <div className="min-h-screen bg-[var(--color-surface-strong)] overflow-x-hidden">
       <Navbar />
 
       {/* Navbar height spacer — keeps content from sitting behind the fixed nav */}
@@ -105,7 +105,7 @@ function Home() {
 
           {/* Overlay content (slower parallax removed to fix button bug) */}
           <div className="relative z-10 flex h-full w-full items-center">
-            <div className="container-fd mx-auto w-full px-[var(--space-4)] sm:px-[var(--space-5)] lg:px-[var(--space-6)] grid grid-cols-1 md:grid-cols-12 gap-[24px] items-center">
+            <div className="w-full max-w-full px-[16px] sm:px-[24px] lg:px-[64px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-[24px] items-center">
               <div className="md:col-span-8 lg:col-span-7 flex flex-col items-start text-left space-y-[32px]">
                 <span
                   className="inline-block px-[12px] py-[6px] border border-[var(--color-text-accent-on-dark)] text-[var(--color-text-accent-on-dark)] text-[12px] leading-[16px] tracking-[0.05em] uppercase font-medium bg-[var(--color-text-accent-on-dark)]/10 rounded-[4px]"
@@ -148,9 +148,9 @@ function Home() {
         {/* Who We Are */}
         <section
           id="about"
-          className="py-[96px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[var(--color-surface-base)] border-b border-[var(--color-border-subtle)]"
+          className="py-[96px] px-[16px] sm:px-[24px] lg:px-[64px] bg-[var(--color-surface-base)] border-b border-[var(--color-border-subtle)]"
         >
-          <div className="container-fd mx-auto grid grid-cols-1 md:grid-cols-12 gap-[64px] items-center">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-[64px] items-center">
             <div className="md:col-span-5 flex flex-col gap-[24px]">
               <h2
                 className="m-0 text-[32px] leading-[40px] tracking-[-0.01em] font-[700] uppercase border-l-4 border-[var(--color-text-inverse)] pl-[24px] text-[var(--color-text-secondary)]"
@@ -193,7 +193,7 @@ function Home() {
         </section>
 
         {/* Pre-Footer CTA */}
-        <section id="catalogue" className="py-[96px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[var(--color-surface-base)] text-[var(--color-text-secondary)] border-t border-[var(--color-border-subtle)]">
+        <section id="catalogue" className="py-[96px] px-[16px] sm:px-[24px] lg:px-[64px] bg-[var(--color-surface-base)] text-[var(--color-text-secondary)] border-t border-[var(--color-border-subtle)]">
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-[40px]">
             <h2
               className="m-0 text-[48px] leading-[56px] tracking-[-0.02em] font-[800] uppercase"
@@ -224,9 +224,9 @@ function Home() {
         {/* Contact Form Section */}
         <section 
           id="contact" 
-          className="py-[64px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[#f0fdf4] border-t border-[var(--color-border-subtle)]"
+          className="py-[64px] px-[16px] sm:px-[24px] lg:px-[64px] bg-[#f0fdf4] border-t border-[var(--color-border-subtle)]"
         >
-          <div className="container-fd mx-auto">
+          <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="mb-[40px] text-center">
               <span

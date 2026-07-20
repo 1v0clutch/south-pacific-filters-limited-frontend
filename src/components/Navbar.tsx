@@ -156,25 +156,25 @@ function Navbar() {
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
         }}
       >
-        <div className="flex items-center justify-between gap-[32px] h-[125px] px-[8px] lg:px-[64px] w-full relative">
+        <div className="flex items-center justify-between gap-[12px] lg:gap-[32px] h-[100px] lg:h-[125px] px-[8px] lg:px-[64px] w-full relative box-border">
           <a
             href="/"
-            className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)]"
+            className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)] flex-shrink-0"
           >
             <img
               src={isMobile ? logoMobile : logo}
               alt="South Pacific Filters Limited"
-              width={isMobile ? 60 : 80}
-              height={isMobile ? 60 : 80}
-              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-25 h-25'} object-contain block`}
+              width={isMobile ? 50 : 80}
+              height={isMobile ? 50 : 80}
+              className={`${isMobile ? 'w-[50px] h-[50px]' : 'w-25 h-25'} object-contain block`}
             />
           </a>
 
           {/* Mobile title - only shown on mobile */}
           {isMobile && (
-            <div className="absolute left-1/2 -translate-x-1/2 text-center">
+            <div className="absolute left-1/2 -translate-x-1/2 text-center flex-shrink-0 px-[12px]">
               <h1 
-                className="text-[16px] font-bold uppercase text-[var(--color-text-secondary)]"
+                className="text-[12px] font-bold uppercase text-[var(--color-text-secondary)] whitespace-nowrap text-ellipsis overflow-hidden"
                 style={{ fontFamily: "'JetBrains Mono', monospace"}}
               >
                 SP Filters Limited
