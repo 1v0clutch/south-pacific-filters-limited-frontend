@@ -156,7 +156,7 @@ function Navbar() {
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
         }}
       >
-        <div className="flex items-center justify-between gap-[32px] h-[125px] px-[32px] lg:px-[64px] w-full relative">
+        <div className="flex items-center justify-between gap-[32px] h-[125px] px-[16px] lg:px-[64px] w-full relative">
           <a
             href="/"
             className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)]"
@@ -166,7 +166,7 @@ function Navbar() {
               alt="South Pacific Filters Limited"
               width={isMobile ? 60 : 80}
               height={isMobile ? 60 : 80}
-              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-20 h-25'} object-contain block`}
+              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-25 h-25'} object-contain block`}
             />
           </a>
 
