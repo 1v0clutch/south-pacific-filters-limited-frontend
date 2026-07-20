@@ -166,7 +166,7 @@ function Navbar() {
               alt="South Pacific Filters Limited"
               width={isMobile ? 60 : 80}
               height={isMobile ? 60 : 80}
-              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-25 h-25'} object-contain block`}
+              className={`${isMobile ? 'w-[60px] h-[60px]' : 'w-20 h-25'} object-contain block`}
             />
           </a>
 
