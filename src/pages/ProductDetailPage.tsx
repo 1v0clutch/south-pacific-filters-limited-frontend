@@ -14,18 +14,18 @@ function ProductDetailPage() {
     return (
       <div className="min-h-screen bg-(--color-surface-strong)">
         <Navbar />
-        <div aria-hidden="true" className="h-[96px]" />
-        <main id="main-content" className="py-[64px] px-(--space-4) md:px-(--space-6)">
+        <div aria-hidden="true" className="h-24" />
+        <main id="main-content" className="py-16 px-(--space-4) md:px-(--space-6)">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-[32px] leading-[40px] font-bold text-(--color-text-secondary) mb-[24px]">
+            <h1 className="text-[32px] leading-10 font-bold text-(--color-text-secondary) mb-6">
               Product Not Found
             </h1>
-            <p className="text-(--color-text-tertiary) mb-[32px]">
+            <p className="text-(--color-text-tertiary) mb-8">
               The requested product does not exist.
             </p>
             <Link 
               to="/" 
-              className="inline-flex items-center px-[24px] py-[12px] bg-(--color-text-inverse) text-(--color-text-on-dark) rounded-[4px] no-underline hover:opacity-90 transition-opacity"
+              className="inline-flex items-center px-6 py-3 bg-(--color-text-inverse) text-(--color-text-on-dark) rounded-sm no-underline hover:opacity-90 transition-opacity"
             >
               Return to Home
             </Link>
@@ -41,14 +41,14 @@ function ProductDetailPage() {
       <Navbar />
       
       {/* Navbar height spacer */}
-      <div aria-hidden="true" className="h-[96px]" />
+      <div aria-hidden="true" className="h-24" />
 
       <main id="main-content">
         {/* Breadcrumb */}
-        <section className="py-[24px] px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-b border-(--color-border-subtle)">
+        <section className="py-4 px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-b border-(--color-border-subtle)">
           <div className="max-w-7xl mx-auto">
             <nav aria-label="Breadcrumb">
-              <ol className="flex items-center gap-[8px] text-[14px] leading-[20px]" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <ol className="flex items-center gap-2 text-[14px] leading-5" style={{ fontFamily: "'Inter', sans-serif" }}>
                 <li>
                   <Link 
                     to={`/products/${category}`}
@@ -68,16 +68,16 @@ function ProductDetailPage() {
           </div>
         </section>
         {/* Product Header */}
-        <section className="py-[48px] px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-b border-(--color-border-subtle)">
+        <section className="py-12 px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-b border-(--color-border-subtle)">
           <div className="max-w-7xl mx-auto">
             <h1 
-              className="m-0 text-[40px] leading-[48px] tracking-[-0.02em] font-extrabold uppercase text-(--color-text-secondary) mb-[8px]"
+              className="m-0 text-[40px] leading-12 tracking-[-0.02em] font-extrabold uppercase text-(--color-text-secondary) mb-2"
               style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
             >
               {product.name}
             </h1>
             <p 
-              className="m-0 text-[16px] leading-[24px] text-(--color-text-accent) font-medium uppercase tracking-[0.02em]"
+              className="m-0 text-[16px] leading-6 text-(--color-text-accent) font-medium uppercase tracking-[0.02em]"
               style={{ fontFamily: "'JetBrains Mono', monospace" }}
             >
               {product.classification || 'Filter'}
@@ -86,12 +86,12 @@ function ProductDetailPage() {
         </section>
 
         {/* Product Content */}
-        <section className="py-[64px] px-(--space-4) md:px-(--space-6) bg-(--color-surface-base)">
+        <section className="py-16 px-(--space-4) md:px-(--space-6) bg-(--color-surface-base)">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[64px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
               {/* Left Column - Image */}
               <div className="flex flex-col">
-                <div className="aspect-square bg-(--color-surface-strong) border border-(--color-border-subtle) rounded-[8px] relative overflow-hidden mb-[24px]">
+                <div className="aspect-square bg-(--color-surface-strong) border border-(--color-border-subtle) rounded-lg relative overflow-hidden mb-6">
                   {product.image ? (
                     <img 
                       src={product.image} 
@@ -101,7 +101,7 @@ function ProductDetailPage() {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <div 
-                        className="w-[200px] h-[200px] border-2 border-dashed border-(--color-text-tertiary) rounded-[8px] flex items-center justify-center"
+                        className="w-50 h-50 border-2 border-dashed border-(--color-text-tertiary) rounded-lg flex items-center justify-center"
                         aria-hidden="true"
                       >
                         <span 
@@ -117,17 +117,17 @@ function ProductDetailPage() {
               </div>
 
               {/* Right Column - Details */}
-              <div className="flex flex-col gap-[40px]">
+              <div className="flex flex-col gap-10">
                 {/* Description */}
                 <div>
                   <h2 
-                    className="m-0 text-[24px] leading-[32px] font-semibold text-(--color-text-secondary) mb-[16px] uppercase tracking-[0.01em]"
+                    className="m-0 text-[24px] leading-8 font-semibold text-(--color-text-secondary) mb-4 uppercase tracking-[0.01em]"
                     style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
                   >
                     Description
                   </h2>
                   <p 
-                    className="m-0 text-[16px] leading-[26px] text-(--color-text-tertiary) font-normal"
+                    className="m-0 text-[16px] leading-6.5 text-(--color-text-tertiary) font-normal"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {product.description}
@@ -137,20 +137,20 @@ function ProductDetailPage() {
                 {product.advantages && product.advantages.length > 0 && (
                   <div>
                     <h2 
-                      className="m-0 text-[24px] leading-[32px] font-[600] text-[var(--color-text-secondary)] mb-[16px] uppercase tracking-[0.01em]"
+                      className="m-0 text-[24px] leading-8 font-semibold text-(--color-text-secondary) mb-4 uppercase tracking-[0.01em]"
                       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
                     >
                       Advantages
                     </h2>
-                    <ul className="list-none m-0 p-0 space-y-[12px]">
+                    <ul className="list-none m-0 p-0 space-y-3">
                       {product.advantages.map((advantage, index) => (
                         <li 
                           key={index}
-                          className="flex items-start gap-[12px] text-[16px] leading-[24px] text-[var(--color-text-tertiary)]"
+                          className="flex items-start gap-3 text-[16px] leading-6 text-(--color-text-tertiary)"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           <span 
-                            className="w-[6px] h-[6px] bg-[var(--color-text-accent)] rounded-full mt-[9px] flex-shrink-0"
+                            className="w-1.5 h-1.5 bg-(--color-text-accent) rounded-full mt-2.25 shrink-0"
                             aria-hidden="true"
                           />
                           {advantage}
@@ -165,22 +165,22 @@ function ProductDetailPage() {
                   (product.generalSpecs && Object.keys(product.generalSpecs).length > 0)) && (
                   <div>
                     <h2 
-                      className="m-0 text-[24px] leading-[32px] font-[600] text-[var(--color-text-secondary)] mb-[16px] uppercase tracking-[0.01em]"
+                      className="m-0 text-[24px] leading-8 font-semibold text-(--color-text-secondary) mb-4 uppercase tracking-[0.01em]"
                       style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
                     >
                       Specifications
                     </h2>
-                    <div className="space-y-[16px]">
+                    <div className="space-y-4">
                       {Object.entries(product.specifications || product.generalSpecs || {}).map(([key, value]) => (
-                        <div key={key} className="flex flex-col sm:flex-row sm:items-center gap-[4px] sm:gap-[16px] py-[12px] border-b border-[var(--color-border-subtle)]">
+                        <div key={key} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-3 border-b border-(--color-border-subtle)">
                           <dt 
-                            className="text-[14px] leading-[20px] font-medium text-[var(--color-text-secondary)] min-w-[160px] uppercase tracking-[0.02em]"
+                            className="text-[14px] leading-5 font-medium text-(--color-text-secondary) min-w-40 uppercase tracking-[0.02em]"
                             style={{ fontFamily: "'JetBrains Mono', monospace" }}
                           >
                             {key}:
                           </dt>
                           <dd 
-                            className="m-0 text-[14px] leading-[20px] text-[var(--color-text-tertiary)] font-normal"
+                            className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {value}
@@ -196,25 +196,26 @@ function ProductDetailPage() {
         </section>
         {/* Technical Specifications Table - Only render if data exists */}
         {((product.specsTable && product.specsTable.length > 0) || (product.customTable && product.customTable.rows.length > 0)) && (
-          <section className="py-[64px] px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-t border-(--color-border-subtle)">
+          <section className="py-16 px-(--space-4) md:px-(--space-6) bg-(--color-surface-base) border-t border-(--color-border-subtle)">
             <div className="max-w-7xl mx-auto">
               <h2 
-                className="m-0 text-[32px] leading-[40px] tracking-[-0.01em] font-bold uppercase text-(--color-text-secondary) mb-[32px]"
+                className="m-0 text-[24px] leading-8 sm:text-[32px] sm:leading-10 tracking-[-0.01em] font-bold uppercase text-(--color-text-secondary) mb-6 sm:mb-8"
                 style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
               >
                 Technical Specifications
               </h2>
               
-              <div className="overflow-x-auto">
+              {/* Desktop Table View (hidden on mobile) */}
+              <div className="hidden md:block overflow-x-auto">
                 {product.customTable && product.customTable.rows.length > 0 ? (
                   // Custom table format
-                  <table className="w-full bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-[8px] overflow-hidden">
+                  <table className="w-full bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg overflow-hidden">
                     <thead>
                       <tr className="bg-(--color-surface-strong) border-b border-(--color-border-subtle)">
                         {product.customTable.headers.map((header, index) => (
                           <th 
                             key={index}
-                            className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                            className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                             style={{ fontFamily: "'JetBrains Mono', monospace" }}
                           >
                             {header}
@@ -231,7 +232,7 @@ function ProductDetailPage() {
                           {product.customTable!.headers.map((header, cellIndex) => (
                             <td 
                               key={cellIndex}
-                              className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                              className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                               style={{ fontFamily: "'Inter', sans-serif" }}
                             >
                               {Array.isArray(row) ? row[cellIndex] : (row[header] || 'N/A')}
@@ -243,59 +244,59 @@ function ProductDetailPage() {
                   </table>
                 ) : (
                   // Standard table format
-                  <table className="w-full bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-[8px] overflow-hidden">
+                  <table className="w-full bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg overflow-hidden">
                     <thead>
                       <tr className="bg-(--color-surface-strong) border-b border-(--color-border-subtle)">
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Type
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Dimensions (WxHxD mm)
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Filter Class
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           # Pockets
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Filter Surface
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Airflow (m³/h)
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Airflow (L/s)
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Pressure Drop (Pa)
                         </th>
                         <th 
-                          className="text-left py-[16px] px-[20px] text-[12px] leading-[16px] font-medium text-(--color-text-secondary) uppercase tracking-wider"
+                          className="text-left py-4 px-5 text-[12px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-wider"
                           style={{ fontFamily: "'JetBrains Mono', monospace" }}
                         >
                           Energy Label
@@ -309,55 +310,55 @@ function ProductDetailPage() {
                           className="border-b border-(--color-border-subtle) last:border-b-0 hover:bg-(--color-surface-strong) transition-colors"
                         >
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-secondary) font-medium"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-secondary) font-medium"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.type}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.dimensions}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.filterClassification}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.pockets}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.filterSurface}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.airflowM3h}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.airflowLs}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-tertiary) font-normal"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.pressureDrop}
                           </td>
                           <td 
-                            className="py-[14px] px-[20px] text-[14px] leading-[20px] text-(--color-text-accent) font-medium"
+                            className="py-3.5 px-5 text-[14px] leading-5 text-(--color-text-accent) font-medium"
                             style={{ fontFamily: "'Inter', sans-serif" }}
                           >
                             {row.energyLabel}
@@ -366,6 +367,181 @@ function ProductDetailPage() {
                       ))}
                     </tbody>
                   </table>
+                )}
+              </div>
+
+              {/* Mobile Card View (visible only on mobile) */}
+              <div className="md:hidden space-y-4">
+                {product.customTable && product.customTable.rows.length > 0 ? (
+                  // Custom table mobile cards
+                  product.customTable.rows.map((row, rowIndex) => (
+                    <div 
+                      key={rowIndex}
+                      className="bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg p-5 space-y-3"
+                    >
+                      {product.customTable!.headers.map((header, cellIndex) => (
+                        <div key={cellIndex} className="flex flex-col gap-1">
+                          <dt 
+                            className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                          >
+                            {header}
+                          </dt>
+                          <dd 
+                            className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            {Array.isArray(row) ? row[cellIndex] : (row[header] || 'N/A')}
+                          </dd>
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  // Standard table mobile cards
+                  product.specsTable?.map((row, index) => (
+                    <div 
+                      key={index}
+                      className="bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg p-5 space-y-3"
+                    >
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Type
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-secondary) font-medium"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.type}
+                        </dd>
+                      </div>
+                      
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Dimensions (WxHxD mm)
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.dimensions}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Filter Class
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.filterClassification}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          # Pockets
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.pockets}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Filter Surface
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.filterSurface}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Airflow (m³/h)
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.airflowM3h}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Airflow (L/s)
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.airflowLs}
+                        </dd>
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <dt 
+                          className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                        >
+                          Pressure Drop (Pa)
+                        </dt>
+                        <dd 
+                          className="m-0 text-[14px] leading-5 text-(--color-text-tertiary) font-normal"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {row.pressureDrop}
+                        </dd>
+                      </div>
+
+                      {row.energyLabel && (
+                        <div className="flex flex-col gap-1">
+                          <dt 
+                            className="text-[11px] leading-4 font-medium text-(--color-text-secondary) uppercase tracking-[0.02em]"
+                            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                          >
+                            Energy Label
+                          </dt>
+                          <dd 
+                            className="m-0 text-[14px] leading-5 text-(--color-text-accent) font-medium"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            {row.energyLabel}
+                          </dd>
+                        </div>
+                      )}
+                    </div>
+                  ))
                 )}
               </div>
             </div>
