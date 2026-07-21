@@ -76,3 +76,4 @@ export default function Certification() {
     </section>
   )
 }
+
