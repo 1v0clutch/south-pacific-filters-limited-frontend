@@ -17,26 +17,26 @@ export default function Certification() {
     <section
       id="certification"
       aria-labelledby="certification-heading"
-      className="py-[64px] px-[var(--space-4)] md:px-[var(--space-6)] bg-[#f0fdf4] border-t border-[var(--color-border-subtle)]"
+      className="py-16 px-(--space-4) md:px-(--space-6) bg-[#f0fdf4] border-t border-(--color-border-subtle)"
     >
       <div className="container-fd mx-auto">
         {/* Section header — mirrors Contact section header pattern exactly */}
-        <div className="mb-[40px] text-center">
+        <div className="mb-10 text-center">
           <span
-            className="inline-block px-[12px] py-[6px] border border-emerald-700 text-emerald-700 text-[11px] leading-[16px] tracking-[0.05em] uppercase font-medium bg-emerald-700/10 rounded-[4px] mb-[12px]"
+            className="inline-block px-3 py-1.5 border border-emerald-700 text-emerald-700 text-[11px] leading-4 tracking-wider uppercase font-medium bg-emerald-700/10 rounded-sm mb-3"
             style={{ fontFamily: "'JetBrains Mono', monospace" }}
           >
             Quality Assurance
           </span>
           <h2
             id="certification-heading"
-            className="m-0 text-[32px] leading-[40px] tracking-[-0.02em] font-[800] uppercase text-[var(--color-text-secondary)] mb-[12px]"
+            className="m-0 text-[32px] leading-10 tracking-[-0.02em] font-extrabold uppercase text-(--color-text-secondary) mb-3"
             style={{ fontFamily: "'Hanken Grotesk', sans-serif" }}
           >
             Our Certification
           </h2>
           <p
-            className="m-0 text-[16px] leading-[24px] text-[var(--color-text-tertiary)] max-w-xl mx-auto font-normal"
+            className="m-0 text-[16px] leading-6 text-(--color-text-tertiary) max-w-xl mx-auto font-normal"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             South Pacific Filters Limited holds internationally recognised quality certification, reflecting our commitment to the highest standards of filtration engineering and manufacturing.
@@ -46,16 +46,16 @@ export default function Certification() {
         {/* Viewer area */}
         <div className="max-w-4xl mx-auto">
           {/* Download / Open button — always visible regardless of viewport or embed support */}
-          <div className="flex justify-center mb-[16px]">
+          <div className="flex justify-center mb-4">
             <a
               href={PDF_URL}
               download={PDF_DOWNLOAD_NAME}
-              className="btn btn--secondary uppercase text-[12px] leading-[16px] tracking-[0.02em] font-medium px-[24px] py-[10px] rounded-[4px] border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors no-underline"
+              className="btn btn--secondary uppercase text-[12px] leading-4 tracking-[0.02em] font-medium px-6 py-2.5 rounded-sm border-emerald-700 text-emerald-700 hover:bg-emerald-700 hover:text-white transition-colors no-underline"
               style={{ fontFamily: "'JetBrains Mono', monospace" }}
               aria-label="Open or download the certification PDF"
             >
               <svg
-                className="inline-block w-4 h-4 mr-[8px] -mt-[1px]"
+                className="inline-block w-4 h-4 mr-2 -mt-px"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
