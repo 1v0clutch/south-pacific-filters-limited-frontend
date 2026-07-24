@@ -172,21 +172,10 @@ function Navbar() {
 
           {/* Mobile title - only shown on mobile */}
           {isMobile && (
-            <div className="absolute left-1/2 -translate-x-1/2 text-center px-3 max-w-[calc(100vw-180px)]">
+            <div className="absolute left-1/2 -translate-x-1/2 w-[calc(100%-120px)] px-2 text-center">
               <h1
-                className="
-                  uppercase
-                  font-extrabold
-                  text-[clamp(14px,4vw,24px)]
-                  text-[var(--color-text-secondary)]
-                  whitespace-nowrap
-                  overflow-hidden
-                  text-ellipsis
-                "
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontWeight: 800,
-                }}
+                className="font-extrabold uppercase text-[clamp(10px,3.8vw,22px)] text-[var(--color-text-secondary)]"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
               >
                 South Pacific Filters Limited
               </h1>
