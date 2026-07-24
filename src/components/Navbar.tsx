@@ -174,7 +174,7 @@ function Navbar() {
           {isMobile && (
             <div className="absolute left-1/2 -translate-x-1/2 text-center flex-shrink-0 px-[12px]">
               <h1 
-                className="text-[12px] font-bold uppercase text-[var(--color-text-secondary)] whitespace-nowrap text-ellipsis overflow-hidden"
+                className="text-[24px] font-bold uppercase text-[var(--color-text-secondary)] whitespace-nowrap text-ellipsis overflow-hidden"
                 style={{ fontFamily: "'JetBrains Mono', monospace"}}
               >
                 SP Filters Limited

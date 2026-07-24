@@ -108,7 +108,7 @@ function Footer() {
               <li>
                 <a className="inline-flex items-center gap-[12px] min-h-[32px] text-[14px] leading-[20px] text-[var(--color-text-muted-on-dark)] no-underline transition-colors duration-150 hover:text-[var(--color-text-on-dark)] cursor-pointer font-['Inter',_sans-serif]">
                   <MapPin className="w-[16px] h-[16px]" aria-hidden="true" />
-                  Manila, Philippines
+                  Auckland, New Zealand
                 </a>
               </li>
             </ul>
