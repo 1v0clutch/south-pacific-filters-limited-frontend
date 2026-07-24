@@ -171,6 +171,7 @@ function Navbar() {
           </a>
 
           {/* Mobile title - only shown on mobile */}
+          {isMobile && (
           <h1
             className="
               text-[clamp(12px,4vw,22px)]
@@ -183,7 +184,7 @@ function Navbar() {
           >
             South Pacific Filters Limited
           </h1>
-
+          )}    
           {/* Desktop navigation (primary of 3 nav regions) */}
           <nav
             aria-label="Primary"
