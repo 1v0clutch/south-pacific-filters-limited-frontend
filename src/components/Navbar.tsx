@@ -142,7 +142,7 @@ function Navbar() {
       {/* Skip link — keyboard-first */}
       <a
         href="#main-content"
-        className="sr-only skip-link rounded-[var(--radius-xs)] left-[var(--space-4)] top-[var(--space-4)] z-[100] bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] shadow-[var(--shadow-1)]"
+        className="sr-only skip-link rounded-(--radius-xs) left-(--space-4) top-(--space-4) z-100 bg-(--color-surface-elevated) text-(--color-text-secondary) shadow-fd"
       >
         Skip to main content
       </a>
@@ -150,29 +150,29 @@ function Navbar() {
       {/* Sticky Navbar — slides out on scroll-down, back in on scroll-up */}
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-50 bg-[var(--color-surface-elevated)] border-b border-[var(--color-border-subtle)] shadow-[var(--shadow-1)] will-change-transform ${reduceMotion ? '' : 'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]'
+        className={`fixed top-0 left-0 right-0 z-50 bg-(--color-surface-elevated) border-b border-(--color-border-subtle) shadow-fd will-change-transform ${reduceMotion ? '' : 'transition-transform duration-300 ease-in-out'
           }`}
         style={{
           transform: navVisible ? "translateY(0)" : "translateY(-100%)",
         }}
       >
-        <div className="flex items-center justify-between gap-[12px] lg:gap-[32px] h-[100px] lg:h-[125px] px-[8px] lg:px-[64px] w-full relative box-border">
+        <div className="flex items-center justify-between gap-3 lg:gap-8 h-25 lg:h-31.25 px-2 lg:px-16 w-full relative box-border">
           <a
             href="/"
-            className="inline-flex items-center no-underline text-[var(--color-text-secondary)] min-h-[44px] py-[var(--space-2)] flex-shrink-0"
+            className="inline-flex items-center no-underline text-(--color-text-secondary) min-h-11 py-(--space-2) shrink-0"
           >
             <img
               src={isMobile ? logoMobile : logo}
               alt="South Pacific Filters Limited"
               width={isMobile ? 50 : 80}
               height={isMobile ? 50 : 80}
-              className={`${isMobile ? 'w-[50px] h-[50px]' : 'w-25 h-25'} object-contain block`}
+              className={`${isMobile ? 'w-12.5 h-12.5' : 'w-25 h-25'} object-contain block`}
             />
           </a>
 
           {/* Mobile title - only shown on mobile */}
           {isMobile && (
-            <div className="absolute left-1/2 -translate-x-1/2 text-center flex-shrink-0 px-[12px]">
+            <div className="absolute left-1/2 -translate-x-1/2 text-center shrink-0 px-3 max-w-[calc(100vw-180px)]">
               <h1 
                 className="text-[24px] font-bold uppercase text-[var(--color-text-secondary)] whitespace-nowrap text-ellipsis overflow-hidden"
                 style={{ fontFamily: "'JetBrains Mono', monospace"}}
@@ -185,7 +185,7 @@ function Navbar() {
           {/* Desktop navigation (primary of 3 nav regions) */}
           <nav
             aria-label="Primary"
-            className="desktop-nav items-center gap-[32px] absolute left-1/2 -translate-x-1/2 text-[14px] leading-[20px] tracking-[0.02em] font-medium uppercase"
+            className="desktop-nav items-center gap-8 absolute left-1/2 -translate-x-1/2 text-[14px] leading-5 tracking-[0.02em] font-medium uppercase"
             style={{ fontFamily: "'JetBrains Mono', monospace" }}
           >
             <a href="/" className="nav-link">
@@ -218,21 +218,21 @@ function Navbar() {
                 id={airMenuId}
                 role="menu"
                 aria-label="Air Filters"
-                className={`absolute left-1/2 -translate-x-1/2 top-full mt-[16px] w-[520px] list-none m-0 p-[24px] bg-[var(--color-surface-elevated)] border border-[var(--color-border-subtle)] rounded-[8px] shadow-lg z-[60] transition-all duration-150 ease-out ${openDropdown === "airFilters"
+                className={`absolute left-1/2 -translate-x-1/2 top-full mt-4 w-130 list-none m-0 p-6 bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg shadow-lg z-60 transition-all duration-150 ease-out ${openDropdown === "airFilters"
                   ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-[8px] pointer-events-none"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
                   }`}
               >
-                <div className="grid grid-cols-3 gap-[16px]">
+                <div className="grid grid-cols-3 gap-4">
                   {airFilterItems.map((item) => (
                     <li key={item.label} role="none" className="flex">
                       <a
                         href={item.href}
                         role="menuitem"
-                        className="flex flex-col items-center justify-center text-center p-[12px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-all duration-200 w-full min-h-[140px] group"
+                        className="flex flex-col items-center justify-center text-center p-3 rounded-lg no-underline text-(--color-text-secondary) hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-(--color-text-inverse) transition-all duration-200 w-full min-h-35 group"
                         onClick={() => setOpenDropdown(null)}
                       >
-                        <div className="mb-[8px] flex-shrink-0 w-full aspect-square max-w-[64px] overflow-hidden rounded-[6px] group-hover:border-[var(--color-text-inverse)] transition-all duration-200 group-hover:shadow-md">
+                        <div className="mb-2 shrink-0 w-full aspect-square max-w-16 overflow-hidden rounded-md group-hover:border-(--color-text-inverse) transition-all duration-200 group-hover:shadow-md">
                           <img
                             src={item.image}
                             alt={item.label}
@@ -240,7 +240,7 @@ function Navbar() {
                           />
                         </div>
                         <span
-                          className="text-[12px] leading-[16px] font-medium"
+                          className="text-[12px] leading-4 font-medium"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {item.label}
@@ -278,21 +278,21 @@ function Navbar() {
                 id={mediaMenuId}
                 role="menu"
                 aria-label="Filter Media"
-                className={`absolute left-1/2 -translate-x-1/2 top-full mt-[16px] w-[520px] list-none m-0 p-[24px] bg-[var(--color-surface-elevated)] border border-[var(--color-border-subtle)] rounded-[8px] shadow-lg z-[60] transition-all duration-150 ease-out ${openDropdown === "filterMedia"
+                className={`absolute left-1/2 -translate-x-1/2 top-full mt-4 w-130 list-none m-0 p-6 bg-(--color-surface-elevated) border border-(--color-border-subtle) rounded-lg shadow-lg z-60 transition-all duration-150 ease-out ${openDropdown === "filterMedia"
                   ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-[8px] pointer-events-none"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
                   }`}
               >
-                <div className="grid grid-cols-3 gap-[16px]">
+                <div className="grid grid-cols-3 gap-4">
                   {filterMediaItems.map((item) => (
                     <li key={item.label} role="none" className="flex">
                       <a
                         href={item.href}
                         role="menuitem"
-                        className="flex flex-col items-center justify-center text-center p-[12px] rounded-[8px] no-underline text-[var(--color-text-secondary)] hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-[var(--color-text-inverse)] transition-all duration-200 w-full min-h-[140px] group"
+                        className="flex flex-col items-center justify-center text-center p-3 rounded-lg no-underline text-(--color-text-secondary) hover:bg-[color-mix(in_srgb,var(--color-text-inverse)_5%,transparent)] hover:text-(--color-text-inverse) transition-all duration-200 w-full min-h-35 group"
                         onClick={() => setOpenDropdown(null)}
                       >
-                        <div className="mb-[8px] flex-shrink-0 w-full aspect-square max-w-[64px] overflow-hidden rounded-[6px] group-hover:border-[var(--color-text-inverse)] transition-all duration-200 group-hover:shadow-md">
+                        <div className="mb-2 shrink-0 w-full aspect-square max-w-16 overflow-hidden rounded-md group-hover:border-(--color-text-inverse) transition-all duration-200 group-hover:shadow-md">
                           <img
                             src={item.image}
                             alt={item.label}
@@ -300,7 +300,7 @@ function Navbar() {
                           />
                         </div>
                         <span
-                          className="text-[12px] leading-[16px] font-medium"
+                          className="text-[12px] leading-4 font-medium"
                           style={{ fontFamily: "'Inter', sans-serif" }}
                         >
                           {item.label}
@@ -328,20 +328,20 @@ function Navbar() {
           {/* Mobile menu toggle */}
           <button
             type="button"
-            className="menu-toggle flex items-center justify-center min-w-[44px] min-h-[44px] rounded-[var(--radius-xs)] border border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] cursor-pointer"
+            className="menu-toggle flex items-center justify-center min-w-11 min-h-11 rounded-(--radius-xs) border border-(--color-border-subtle) bg-(--color-surface-elevated) text-(--color-text-secondary) cursor-pointer"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls={mobileNavId}
             onClick={() => setMobileOpen((prev) => !prev)}
           >
-            {mobileOpen ? <X className="w-[22px] h-[22px]" aria-hidden="true" /> : <Menu className="w-[22px] h-[22px]" aria-hidden="true" />}
+            {mobileOpen ? <X className="w-5.5 h-5.5" aria-hidden="true" /> : <Menu className="w-5.5 h-5.5" aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile navigation panel */}
         <div
           id={mobileNavId}
-          className="mobile-nav-panel border-t border-[var(--color-border-subtle)] bg-[var(--color-surface-elevated)] overflow-auto transition-[max-height] duration-[var(--motion-duration-fast)] ease-out transition-opacity duration-[var(--motion-duration-fast)] ease-out"
+          className="mobile-nav-panel border-t border-(--color-border-subtle) bg-(--color-surface-elevated) overflow-auto transition-[max-height] duration-(--motion-duration-fast) ease-out transition-opacity duration-(--motion-duration-fast) ease-out"
           hidden={!mobileOpen}
           style={{
             maxHeight: mobileOpen ? "min(85vh, 720px)" : 0,
@@ -350,10 +350,10 @@ function Navbar() {
         >
           <nav
             aria-label="Mobile"
-            className="flex flex-col gap-[var(--space-1)] p-[var(--space-4)]"
+            className="flex flex-col gap-(--space-1) p-(--space-4)"
           >
             <a
-              href="#home"
+              href="/"
               className="nav-link w-full"
               onClick={closeMobile}
             >
@@ -375,13 +375,13 @@ function Navbar() {
                 />
               </button>
               {mobileAirOpen && (
-                <ul className="list-none m-0 pl-[var(--space-4)] border-l-2 border-[var(--color-text-inverse)] ml-[var(--space-3)]">
+                <ul className="list-none m-0 pl-(--space-4) border-l-2 border-(--color-text-inverse) ml-(--space-3)">
                   {airFilterItems.map((item) => (
                     <li key={item.label}>
                       <a
                         href={item.href}
                         onClick={closeMobile}
-                        className="block py-[var(--space-3)] text-[var(--color-text-tertiary)] no-underline text-[length:var(--font-size-xs)] min-h-[44px]"
+                        className="block py-(--space-3) text-(--color-text-tertiary) no-underline text-(length:--font-size-xs) min-h-11"
                       >
                         {item.label}
                       </a>
@@ -406,13 +406,13 @@ function Navbar() {
                 />
               </button>
               {mobileMediaOpen && (
-                <ul className="list-none m-0 pl-[var(--space-4)] border-l-2 border-[var(--color-text-inverse)] ml-[var(--space-3)]">
+                <ul className="list-none m-0 pl-(--space-4) border-l-2 border-(--color-text-inverse) ml-(--space-3)">
                   {filterMediaItems.map((item) => (
                     <li key={item.label}>
                       <a
                         href={item.href}
                         onClick={closeMobile}
-                        className="block py-[var(--space-3)] text-[var(--color-text-tertiary)] no-underline text-[length:var(--font-size-xs)] min-h-[44px]"
+                        className="block py-(--space-3) text-(--color-text-tertiary) no-underline text-(length:--font-size-xs) min-h-11"
                       >
                         {item.label}
                       </a>
