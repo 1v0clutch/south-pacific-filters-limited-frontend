@@ -171,16 +171,18 @@ function Navbar() {
           </a>
 
           {/* Mobile title - only shown on mobile */}
-          {isMobile && (
-            <div className="absolute left-1/2 -translate-x-1/2 w-[calc(100%-120px)] px-2 text-center">
-              <h1
-                className="font-extrabold uppercase text-[clamp(10px,3.8vw,22px)] text-[var(--color-text-secondary)]"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                South Pacific Filters Limited
-              </h1>
-            </div>
-          )}
+          <h1
+            className="
+              text-[clamp(12px,4vw,22px)]
+              font-extrabold
+              uppercase
+              break-words
+              leading-tight
+              text-center
+            "
+          >
+            South Pacific Filters Limited
+          </h1>
 
           {/* Desktop navigation (primary of 3 nav regions) */}
           <nav
